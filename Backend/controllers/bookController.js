@@ -67,3 +67,59 @@ exports.createBook = async (req, res) => {
     }
 
 };
+
+exports.updateBook = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        let { title, author, category_id, stock } = req.body;
+
+        if (!title || !author || !category_id || !stock) {
+            return res.status(400).json({
+                error: "Semua field wajib diisi"
+            });
+        }
+
+        title = cleanText(title);
+        author = cleanText(author);
+
+        await Book.update(id, {
+            title,
+            author,
+            category_id,
+            stock
+        });
+
+        res.json({
+            message: "Book berhasil diupdate"
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+}; 
+
+exports.deleteBook = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        await Book.delete(id);
+
+        res.json({
+            message: "Book berhasil dihapus"
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+};

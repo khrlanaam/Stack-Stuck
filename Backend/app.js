@@ -25,23 +25,37 @@ app.get("/", (req,res)=>{
 
 // books endpoint
 app.use(
- "/books",
- bookRoutes
+  "/api/books", 
+  bookRoutes
 );
 
 // login endpoint
 app.use(
- "/login",
+ "/api/login",
  loginRoutes
 );
+
+// Not Found Handler
+app.use((req, res) => {
+   res.status(404).json({
+      message: "Endpoint tidak ditemukan"
+   });
+});
+
+// Eror Handler
+app.use((err, req, res, next) => {
+   console.error(err.stack);
+
+   res.status(500).json({
+      error: "Terjadi kesalahan pada server"
+   });
+});
 
 // server
 const PORT = 3000;
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
 
- console.log(
-  `Server running on port ${PORT}`
- );
+   console.log(` Server running at http://localhost:${PORT}`);
 
 });

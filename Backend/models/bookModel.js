@@ -17,6 +17,26 @@ const Book = {
         );
 
         return result;
+    },
+
+    update: async (id, data) => {
+
+    const [result] = await db.query(
+        "UPDATE books SET ? WHERE id = ?",
+        [data, id]
+    );
+
+    return result;
+    },
+
+    delete: async (id) => {
+
+    const [result] = await db.query(
+        "DELETE FROM books WHERE id = ?",
+        [id]
+    );
+
+    return result;
     }
 };
 
