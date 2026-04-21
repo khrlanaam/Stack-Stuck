@@ -1,21 +1,27 @@
-require("dotenv").config()
-console.log(process.env.DB_NAME)
-const mysql = require("mysql2")
+require("dotenv").config();
+const mysql = require("mysql2");
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-})
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "readzone_db",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
-// koneksi
-db.connect((err) => {
-    if (err) {
-        console.error("Koneksi gagal:", err.message)
-    } else {
-        console.log("Database connected")
+const db = pool.promise();
+
+// test koneksi saat startup
+(async () => {
+    try {
+        const connection = await db.getConnection();
+        console.log("Database connected");
+        connection.release();
+    } catch (err) {
+        console.error("Database connection failed:", err.message);
     }
-})
+})();
 
-module.exports = db
+module.exports = db;
