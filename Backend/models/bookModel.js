@@ -1,43 +1,41 @@
 const db = require("../config/database");
 
 const Book = {
-    getAll: async () => {
-        const [rows] = await db.query(
-            "SELECT * FROM books"
-        );
+  getAll: async () => {
+    const [rows] = await db.query("SELECT * FROM books");
+    return rows;
+  },
 
-        return rows;
-    },
-
-    create: async (data) => {
-
-        const [result] = await db.query(
-            "INSERT INTO books SET ?",
-            data
-        );
-
-        return result;
-    },
-
-    update: async (id, data) => {
-
-    const [result] = await db.query(
-        "UPDATE books SET ? WHERE id = ?",
-        [data, id]
-    );
-
+  create: async (data) => {
+    const [result] = await db.query("INSERT INTO books SET ?", data);
     return result;
-    },
+  },
 
-    delete: async (id) => {
-
-    const [result] = await db.query(
-        "DELETE FROM books WHERE id = ?",
-        [id]
-    );
-
+  update: async (id, data) => {
+    const [result] = await db.query("UPDATE books SET ? WHERE id = ?", [
+      data,
+      id,
+    ]);
     return result;
-    }
+  },
+
+  delete: async (id) => {
+    const [result] = await db.query("DELETE FROM books WHERE id = ?", [id]);
+    return result;
+  },
 };
 
-module.exports = Book;
+const getBooksByCategory = async (categoryId) => {
+  const [rows] = await db.query("SELECT * FROM books WHERE category_id = ?", [
+    categoryId,
+  ]);
+  return rows;
+};
+
+module.exports = {
+  getAll: Book.getAll,
+  create: Book.create,
+  update: Book.update,
+  delete: Book.delete,
+  getBooksByCategory,
+};
