@@ -3,47 +3,71 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-// koneksi database
+// ===============================
+// DATABASE
+// ===============================
 require("./config/database");
 
-// routes
+// ===============================
+// MIDDLEWARE
+// ===============================
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// logging request (debug)
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// ===============================
+// ROUTES IMPORT
+// ===============================
 const bookRoutes = require("./routers/bookRoutes");
 const categoryRoutes = require("./routers/categoryRoutes");
 const userRoutes = require("./routers/userRoutes");
 const borrowingRoutes = require("./routers/borrowingRoutes");
 const authRoutes = require("./routers/authRoutes");
 
-// middleware
-app.use(express.json());
-
-// root
+// ===============================
+// ROOT ENDPOINT
+// ===============================
 app.get("/", (req, res) => {
   res.send("Backend ReadZone berjalan");
 });
 
-// routes
+// ===============================
+// API ROUTES
+// ===============================
 app.use("/api/books", bookRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/borrowings", borrowingRoutes);
 app.use("/api/auth", authRoutes);
 
-// 404
+// ===============================
+// 404 HANDLER
+// ===============================
 app.use((req, res) => {
   res.status(404).json({
     message: "Endpoint tidak ditemukan"
   });
 });
 
-// error handler
+// ===============================
+// ERROR HANDLER
+// ===============================
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error("ERROR:", err);
+
   res.status(500).json({
-    error: "Terjadi kesalahan pada server"
+    error: err.message || "Terjadi kesalahan pada server"
   });
 });
 
-// server
+// ===============================
+// SERVER
+// ===============================
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
