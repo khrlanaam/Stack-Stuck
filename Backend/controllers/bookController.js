@@ -2,7 +2,6 @@ const Book = require("../models/bookModel");
 
 const cleanText = (text) => text.trim().replace(/\s+/g, " ");
 
-// GET ALL
 exports.getAllBooks = async (req, res) => {
   try {
     const books = await Book.getAll();
@@ -19,12 +18,10 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
-// CREATE
 exports.createBook = async (req, res) => {
   try {
     let { title, author, category_id, stock } = req.body;
 
-    // VALIDASI
     if (!title || !author || !category_id) {
       return res.status(400).json({
         message: "Title, author, dan category wajib diisi"
@@ -58,7 +55,7 @@ exports.createBook = async (req, res) => {
   }
 };
 
-// UPDATE
+
 exports.updateBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -103,7 +100,6 @@ exports.updateBook = async (req, res) => {
   }
 };
 
-// DELETE
 exports.deleteBook = async (req, res) => {
   try {
     const { id } = req.params;

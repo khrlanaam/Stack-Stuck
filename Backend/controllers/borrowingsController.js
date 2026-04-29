@@ -1,8 +1,8 @@
 const db = require("../config/database");
 
-// ===============================
-// 📌 PINJAM BUKU
-// ===============================
+
+// PINJAM BUKU
+
 exports.borrowBook = async (req, res) => {
   const conn = await db.getConnection();
 
@@ -83,9 +83,9 @@ exports.borrowBook = async (req, res) => {
   }
 };
 
-// ===============================
-// 📌 RETURN BUKU
-// ===============================
+
+// RETURN BUKU
+
 exports.returnBook = async (req, res) => {
   const conn = await db.getConnection();
 
@@ -151,9 +151,7 @@ exports.returnBook = async (req, res) => {
   }
 };
 
-// ===============================
-// 📌 GET ALL BORROWINGS
-// ===============================
+//  GET ALL BORROWINGS
 exports.getAllBorrowings = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -184,9 +182,8 @@ exports.getAllBorrowings = async (req, res) => {
   }
 };
 
-// ===============================
-// 📌 GET ACTIVE BORROWINGS
-// ===============================
+// GET ACTIVE BORROWINGS
+
 exports.getActiveBorrowings = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -217,9 +214,8 @@ exports.getActiveBorrowings = async (req, res) => {
   }
 };
 
-// ===============================
-// 📌 GET OVERDUE BORROWINGS
-// ===============================
+
+// GET OVERDUE BORROWINGS
 exports.getOverdueBorrowings = async (req, res) => {
   try {
     const [rows] = await db.query(`
