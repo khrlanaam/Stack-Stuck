@@ -4,15 +4,17 @@ const router = express.Router();
 const bookController = require("../controllers/bookController");
 const auth = require("../middleware/auth");
 const authorize = require("../middleware/authorize");
+const upload = require("../middleware/upload");
 
-// PUBLIC 
+// PUBLIC
 router.get("/", auth, bookController.getAllBooks);
 
-// ADMIN 
+// ADMIN
 router.post(
   "/",
   auth,
   authorize("admin"),
+  upload.single("image"),
   bookController.createBook
 );
 
@@ -20,6 +22,7 @@ router.put(
   "/:id",
   auth,
   authorize("admin"),
+  upload.single("image"),
   bookController.updateBook
 );
 
