@@ -38,14 +38,14 @@ exports.createBook = async (req, res) => {
     author = cleanText(author);
 
     // ✅ ambil file upload dari multer
-    const image = req.file ? req.file.filename : null;
+    const cover = req.file ? req.file.filename : null;
 
     await Book.create({
       title,
       author,
       category_id,
       stock: stock || 0,
-      image   // 🔥 ini yang tadi belum ada
+      cover   // 🔥 ini yang tadi belum ada
     });
 
     res.status(201).json({

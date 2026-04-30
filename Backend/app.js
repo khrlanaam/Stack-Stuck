@@ -38,18 +38,14 @@ app.get("/", (req, res) => {
   res.send("Backend ReadZone berjalan");
 });
 
-// ===============================
 // API ROUTES
-// ===============================
 app.use("/api/books", bookRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/borrowings", borrowingRoutes);
 app.use("/api/auth", authRoutes);
 
-// ===============================
 // 404 HANDLER
-// ===============================
 app.use((req, res) => {
   res.status(404).json({
     message: "Endpoint tidak ditemukan"
