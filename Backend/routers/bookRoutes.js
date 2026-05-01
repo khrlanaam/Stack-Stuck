@@ -14,7 +14,7 @@ router.post(
   "/",
   auth,
   authorize("admin"),
-  upload.single("image"),
+  upload.single("cover"),
   bookController.createBook
 );
 
@@ -22,7 +22,7 @@ router.put(
   "/:id",
   auth,
   authorize("admin"),
-  upload.single("image"),
+  upload.single("cover"),
   bookController.updateBook
 );
 
