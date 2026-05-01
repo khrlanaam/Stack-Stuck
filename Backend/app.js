@@ -3,14 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-// ===============================
+
 // DATABASE
-// ===============================
+
 require("./config/database");
 
-// ===============================
+
 // MIDDLEWARE
-// ===============================
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,18 +22,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===============================
+
 // ROUTES IMPORT
-// ===============================
+
 const bookRoutes = require("./routers/bookRoutes");
 const categoryRoutes = require("./routers/categoryRoutes");
 const userRoutes = require("./routers/userRoutes");
 const borrowingRoutes = require("./routers/borrowingRoutes");
 const authRoutes = require("./routers/authRoutes");
 
-// ===============================
+
 // ROOT ENDPOINT
-// ===============================
+
 app.get("/", (req, res) => {
   res.send("Backend ReadZone berjalan");
 });
@@ -52,9 +52,9 @@ app.use((req, res) => {
   });
 });
 
-// ===============================
+
 // ERROR HANDLER
-// ===============================
+
 app.use((err, req, res, next) => {
   console.error("ERROR:", err);
 
@@ -63,9 +63,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ===============================
+
 // SERVER
-// ===============================
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

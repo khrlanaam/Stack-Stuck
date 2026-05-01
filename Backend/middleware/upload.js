@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-// konfigurasi storage
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// validasi file
+
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png/;
 
@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// middleware upload
+
 const upload = multer({
   storage,
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB

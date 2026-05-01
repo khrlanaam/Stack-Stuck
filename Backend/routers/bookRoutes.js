@@ -6,10 +6,10 @@ const auth = require("../middleware/auth");
 const authorize = require("../middleware/authorize");
 const upload = require("../middleware/upload");
 
-// PUBLIC
+
 router.get("/", auth, bookController.getAllBooks);
 
-// ADMIN
+
 router.post(
   "/",
   auth,

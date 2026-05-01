@@ -37,7 +37,7 @@ exports.createBook = async (req, res) => {
     title = cleanText(title);
     author = cleanText(author);
 
-    // ✅ ambil file upload dari multer
+    
     const cover = req.file ? req.file.filename : null;
 
     await Book.create({
@@ -45,7 +45,7 @@ exports.createBook = async (req, res) => {
       author,
       category_id,
       stock: stock || 0,
-      cover   // 🔥 ini yang tadi belum ada
+      cover   
     });
 
     res.status(201).json({
@@ -80,7 +80,7 @@ exports.updateBook = async (req, res) => {
     title = cleanText(title);
     author = cleanText(author);
 
-    // 🔥 data dasar update
+    
     const dataUpdate = {
       title,
       author,
@@ -88,7 +88,7 @@ exports.updateBook = async (req, res) => {
       stock
     };
 
-    // ✅ jika ada upload foto baru
+    
     if (req.file) {
       dataUpdate.image = req.file.filename;
     }
