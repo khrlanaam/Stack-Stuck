@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node app.js",
     "start": "node app.js",
-    "seed": "node seed/seed.js"
+    "seed": "node seed/index.js"
   },
   "keywords": [],
   "author": "",

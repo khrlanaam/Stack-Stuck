@@ -6,6 +6,11 @@ const Book = {
     return rows;
   },
 
+  getById: async (id) => {
+    const [rows] = await db.query("SELECT * FROM books WHERE id = ?", [id]);
+    return rows[0];
+  },
+
   create: async (data) => {
     const [result] = await db.query("INSERT INTO books SET ?", data);
     return result;
@@ -26,9 +31,10 @@ const Book = {
 };
 
 const getBooksByCategory = async (categoryId) => {
-  const [rows] = await db.query("SELECT * FROM books WHERE category_id = ?", [
-    categoryId,
-  ]);
+  const [rows] = await db.query(
+    "SELECT * FROM books WHERE category_id = ?",
+    [categoryId]
+  );
   return rows;
 };
 
@@ -45,10 +51,8 @@ const search = async (keyword) => {
 };
 
 module.exports = {
-  getAll: Book.getAll,
-  create: Book.create,
-  update: Book.update,
-  delete: Book.delete,
+  ...Book,
   getBooksByCategory,
   search,
 };
+
