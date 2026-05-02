@@ -134,3 +134,23 @@ exports.deleteBook = async (req, res) => {
     });
   }
 };
+
+exports.searchBooks = async (req, res) => {
+  try {
+    let search = req.query.search || "";
+
+    search = cleanText(search);
+
+    const books = await Book.search(search);
+
+    res.status(200).json({
+      message: "Hasil Pencarian Buku",
+      data: books
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+};

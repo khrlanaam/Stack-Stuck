@@ -7,7 +7,10 @@ const authorize = require("../middleware/authorize");
 const upload = require("../middleware/upload");
 
 
+
 router.get("/", auth, bookController.getAllBooks);
+router.get("/search", bookController.searchBooks);
+
 
 
 router.post(
