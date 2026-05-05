@@ -3,17 +3,14 @@ const router = express.Router();
 
 const borrowingsController = require("../controllers/borrowingsController");
 
-console.log(borrowingsController);
+const auth = require("../middleware/auth");
+const authorize = require("../middleware/authorize");
 
+router.post("/", auth, borrowingsController.borrowBook);
+router.post("/return", auth, borrowingsController.returnBook);
+router.get("/active", auth, borrowingsController.getActiveBorrowings);
 
-router.post("/", borrowingsController.borrowBook);
-
-router.post("/return", borrowingsController.returnBook);
-
-router.get("/", borrowingsController.getAllBorrowings);
-
-router.get("/active", borrowingsController.getActiveBorrowings);
-
-router.get("/overdue", borrowingsController.getOverdueBorrowings);
+router.get("/", auth, authorize("admin"), borrowingsController.getAllBorrowings);
+router.get("/overdue", auth, authorize("admin"), borrowingsController.getOverdueBorrowings);
 
 module.exports = router;
