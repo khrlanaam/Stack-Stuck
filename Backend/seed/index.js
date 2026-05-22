@@ -28,7 +28,6 @@ async function runSeed() {
 
     await resetDatabase(conn);
 
-    // ORDER IS CRITICAL
     await seedUsers(conn);
     await seedCategories(conn);
     await seedBooks(conn);

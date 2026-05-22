@@ -6,7 +6,7 @@ module.exports = async function seedUsers(conn) {
   // source of truth (plaintext untuk dev)
   const rawUsers = [
     { name: "Admin", email: "admin@mail.com", password: "admin123", role: "admin" },
-    { name: "Anam", email: "anam@mail.com", password: "anam123", role: "user" },
+    { name: "Pret", email: "pret@mail.com", password: "pret123", role: "user" },
     { name: "Budi", email: "budi@mail.com", password: "budi123", role: "user" },
     { name: "Citra", email: "citra@mail.com", password: "citra123", role: "user" },
     { name: "Dewi", email: "dewi@mail.com", password: "dewi123", role: "user" },
@@ -17,7 +17,7 @@ module.exports = async function seedUsers(conn) {
     { name: "Indra", email: "indra@mail.com", password: "indra123", role: "user" },
   ];
 
-  // hash semua password (parallel, tapi aman karena tidak ada dependency antar user)
+  // hash password 
   const users = await Promise.all(
     rawUsers.map(async (u) => {
       const hash = await bcrypt.hash(u.password, 10);

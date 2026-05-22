@@ -1,57 +1,52 @@
 const db = require("../config/database");
 
-
-// PINJAM BUKU
-
 exports.borrowBook = async (req, res) => {
   const conn = await db.getConnection();
 
   try {
-    const { user_id, book_id } = req.body || {};
+    const user_id = req.user.id;
+    const { book_id } = req.body;
 
-    if (!user_id || !book_id) {
-      return res.json({
-        message: "user_id dan book_id wajib diisi"
+    if (!book_id || isNaN(book_id)) {
+      return res.status(400).json({
+        message: "book_id tidak valid",
       });
     }
 
-    // cek user
-    const [users] = await conn.query(
-      "SELECT * FROM users WHERE id = ?",
-      [user_id]
-    );
-
-    if (users.length === 0) {
-      return res.json({
-        message: "User tidak ditemukan"
-      });
-    }
-
-    // cek buku
     const [books] = await conn.query(
       "SELECT stock FROM books WHERE id = ?",
       [book_id]
     );
 
     if (books.length === 0) {
-      return res.json({
-        message: "Buku tidak ditemukan"
+      return res.status(404).json({
+        message: "Buku tidak ditemukan",
       });
     }
 
     if (books[0].stock <= 0) {
-      return res.json({
-        message: "Stok habis"
+      return res.status(400).json({
+        message: "Stok habis",
+      });
+    }
+
+    const [existing] = await conn.query(
+      `SELECT id FROM borrowings 
+       WHERE user_id = ? AND book_id = ? AND status = 'borrowed'`,
+      [user_id, book_id]
+    );
+
+    if (existing.length > 0) {
+      return res.status(400).json({
+        message: "Kamu masih meminjam buku ini",
       });
     }
 
     await conn.beginTransaction();
 
-    // due date +7 hari
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 7);
 
-    // insert borrowing
     const [result] = await conn.query(
       `INSERT INTO borrowings
       (user_id, book_id, borrow_date, due_date, status)
@@ -59,7 +54,6 @@ exports.borrowBook = async (req, res) => {
       [user_id, book_id, dueDate]
     );
 
-    // update stock
     await conn.query(
       "UPDATE books SET stock = stock - 1 WHERE id = ?",
       [book_id]
@@ -69,32 +63,29 @@ exports.borrowBook = async (req, res) => {
 
     res.json({
       message: "Peminjaman berhasil",
-      borrowing_id: result.insertId
+      borrowing_id: result.insertId,
     });
 
   } catch (err) {
     await conn.rollback();
-    console.error(err);
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   } finally {
     conn.release();
   }
 };
 
-
-// RETURN BUKU
-
 exports.returnBook = async (req, res) => {
   const conn = await db.getConnection();
 
   try {
-    const { borrowing_id } = req.body || {};
+    const { borrowing_id } = req.body;
+    const user = req.user;
 
     if (!borrowing_id) {
-      return res.json({
-        message: "borrowing_id wajib diisi"
+      return res.status(400).json({
+        message: "borrowing_id wajib diisi",
       });
     }
 
@@ -104,22 +95,27 @@ exports.returnBook = async (req, res) => {
     );
 
     if (rows.length === 0) {
-      return res.json({
-        message: "Data tidak ditemukan"
+      return res.status(404).json({
+        message: "Data tidak ditemukan",
       });
     }
 
     const borrowing = rows[0];
 
-    if (borrowing.status === "returned") {
-      return res.json({
-        message: "Buku sudah dikembalikan"
+    if (user.role !== "admin" && borrowing.user_id !== user.id) {
+      return res.status(403).json({
+        message: "Tidak punya akses ke data ini",
+      });
+    }
+
+    if (borrowing.status !== "borrowed") {
+      return res.status(400).json({
+        message: "Buku tidak dalam status dipinjam",
       });
     }
 
     await conn.beginTransaction();
 
-    // update borrowing
     await conn.query(
       `UPDATE borrowings
        SET return_date = NOW(),
@@ -128,7 +124,6 @@ exports.returnBook = async (req, res) => {
       [borrowing_id]
     );
 
-    // update stock
     await conn.query(
       "UPDATE books SET stock = stock + 1 WHERE id = ?",
       [borrowing.book_id]
@@ -137,21 +132,19 @@ exports.returnBook = async (req, res) => {
     await conn.commit();
 
     res.json({
-      message: "Buku berhasil dikembalikan"
+      message: "Buku berhasil dikembalikan",
     });
 
   } catch (err) {
     await conn.rollback();
-    console.error(err);
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   } finally {
     conn.release();
   }
 };
 
-//  GET ALL BORROWINGS
 exports.getAllBorrowings = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -171,22 +164,21 @@ exports.getAllBorrowings = async (req, res) => {
 
     res.json({
       message: "Data berhasil diambil",
-      data: rows
+      data: rows,
     });
 
   } catch (err) {
-    console.error(err);
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   }
 };
 
-// GET ACTIVE BORROWINGS
-
 exports.getActiveBorrowings = async (req, res) => {
   try {
-    const [rows] = await db.query(`
+    const user = req.user;
+
+    let query = `
       SELECT 
         b.id,
         u.name AS user_name,
@@ -198,24 +190,31 @@ exports.getActiveBorrowings = async (req, res) => {
       JOIN users u ON b.user_id = u.id
       JOIN books bk ON b.book_id = bk.id
       WHERE b.status = 'borrowed'
-      ORDER BY b.id DESC
-    `);
+    `;
+
+    let params = [];
+
+    if (user.role !== "admin") {
+      query += " AND b.user_id = ?";
+      params.push(user.id);
+    }
+
+    query += " ORDER BY b.id DESC";
+
+    const [rows] = await db.query(query, params);
 
     res.json({
       message: "Borrowing aktif",
-      data: rows
+      data: rows,
     });
 
   } catch (err) {
-    console.error(err);
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   }
 };
 
-
-// GET OVERDUE BORROWINGS
 exports.getOverdueBorrowings = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -236,13 +235,12 @@ exports.getOverdueBorrowings = async (req, res) => {
 
     res.json({
       message: "Borrowing overdue",
-      data: rows
+      data: rows,
     });
 
   } catch (err) {
-    console.error(err);
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   }
 };
