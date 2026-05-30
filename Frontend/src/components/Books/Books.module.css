@@ -3,53 +3,53 @@
   margin: 1rem;
 }
 
-.movies {
+.books {
   margin: 5rem 0;
   text-align: center;
 }
 
-.movies__title {
+.books__title {
   margin-bottom: 1rem;
   font-size: 2.44rem;
   color: #4361ee;
 }
 
-.movie__container {
+.books__container {
   display: flex;
   flex-direction: column;
 }
 
-.movie {
+.book {
   margin-bottom: 1rem;
 }
 
-.movie__image {
+.book__image {
   border-radius: 25px;
   max-width: 100%;
   height: auto;
   margin-bottom: 1rem;
 }
 
-.movie__title {
+.book__title {
   color: #4361ee;
   font-size: 1.95rem;
   margin-bottom: 0.5rem;
 }
 
-.movie__date {
+.book__date {
   color: #64748b;
 }
 
 /* Medium Screen */
 @media (min-width: 768px) {
-  .movie__container {
+  .books__container {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }
 
-  .movie {
+  .book {
     flex-basis: 50%;
   }
 }
@@ -61,7 +61,7 @@
     margin: 3rem auto;
   }
 
-  .movie {
+  .book {
     flex-basis: 25%;
     padding: 1rem;
   }

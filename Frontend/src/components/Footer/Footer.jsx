@@ -3,8 +3,8 @@ function Footer(){
     return(
         <div className={styles.container}>
             <footer className={styles.footer}>
-                <h2 className={styles.footer__title}>Movie App</h2>
-                <p className={styles.footer__author}>Created by Aufa Billah</p>
+                <h2 className={styles.footer__title}>ReadZone</h2>
+                <p className={styles.footer__author}>Created by Stack-Stuck</p>
             </footer>
         </div>
     )
