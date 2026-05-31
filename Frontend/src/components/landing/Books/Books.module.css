@@ -1,0 +1,18 @@
+.rowWrapper {
+  padding: 20px 40px;
+}
+
+.rowWrapper h2 {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  scrollbar-width: none;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}

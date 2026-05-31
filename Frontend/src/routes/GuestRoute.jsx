@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function GuestRoute({ children }) {
-  const token = localStorage.getItem("token");
+  const { isAuthenticated, loading } = useAuth();
 
-  if (token) {
-    return <Navigate to="/" replace />;
-  }
+  if (loading) return null;
 
-  return children;
+  return !isAuthenticated ? children : <Navigate to="/home" replace />;
 }
 
 export default GuestRoute;

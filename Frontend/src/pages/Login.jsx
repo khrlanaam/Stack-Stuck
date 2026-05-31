@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,21 +19,21 @@ function Login() {
         password,
       });
 
-      localStorage.setItem("token", result.token);
+      if (!result?.token || !result?.user) {
+        throw new Error("Response login tidak valid");
+      }
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(result.user)
-      );
+      login(result.user, result.token);
 
       alert("Login berhasil");
 
       console.log(result);
 
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       alert(
         error.response?.data?.error ||
+        error.message ||
         "Login gagal"
       );
     }
@@ -48,9 +50,7 @@ function Login() {
           <input
             type="email"
             value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -63,9 +63,7 @@ function Login() {
           <input
             type="password"
             value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
