@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/authService";
+import styles from "./Register.module.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,13 +14,11 @@ function Register() {
     e.preventDefault();
 
     try {
-      const result = await registerUser({
+      await registerUser({
         name,
         email,
         password,
       });
-
-      alert(result.message);
 
       navigate("/login");
     } catch (error) {
@@ -31,53 +30,90 @@ function Register() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className={styles.container}>
+      {/* LEFT */}
+      <div className={styles.left}>
+        <div className={styles.overlay}></div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nama</label>
-          <br />
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+        <div className={styles.leftContent}>
+          <h1>Join ReadZone</h1>
+
+          <p>
+            Create your account and unlock access to
+            thousands of books, articles, and learning
+            resources.
+          </p>
+        </div>
+      </div>
+
+      {/* RIGHT */}
+      <div className={styles.right}>
+        <div
+          className={styles.logo}
+          onClick={() => navigate("/")}
+        >
+          ReadZone
         </div>
 
-        <br />
+        <div className={styles.card}>
+          <h2>Create Account</h2>
 
-        <div>
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <p>Start your reading journey today</p>
+
+          <form onSubmit={handleSubmit}>
+            <label>Full Name</label>
+
+            <input
+              type="text"
+              placeholder="Abidin"
+              value={name}
+              onChange={(e) =>
+                setName(e.target.value)
+              }
+              required
+            />
+
+            <label>Email Address</label>
+
+            <input
+              type="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              required
+            />
+
+            <label>Password</label>
+
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+            />
+
+            <button type="submit">
+              Create Account
+            </button>
+          </form>
+
+          <p className={styles.login}>
+            Already have an account?{" "}
+            <span
+              onClick={() =>
+                navigate("/login")
+              }
+            >
+              Sign In
+            </span>
+          </p>
         </div>
-
-        <br />
-
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <br />
-
-        <button type="submit">
-          Register
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

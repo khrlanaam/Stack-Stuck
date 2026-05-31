@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import { loginUser } from "../services/authService";
+import styles from "./Login.module.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,61 +20,105 @@ function Login() {
         password,
       });
 
-      if (!result?.token || !result?.user) {
-        throw new Error("Response login tidak valid");
-      }
+      console.log("LOGIN RESULT:", result);
 
-      login(result.user, result.token);
-
-      alert("Login berhasil");
-
-      console.log(result);
+      login(
+        result.user,
+        result.token
+      );
 
       navigate("/home");
     } catch (error) {
       alert(
         error.response?.data?.error ||
-        error.message ||
         "Login gagal"
       );
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className={styles.container}>
+      {/* LEFT SIDE */}
+      <div className={styles.left}>
+        <div className={styles.overlay}></div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className={styles.leftContent}>
+          <h1>Read Without Limits</h1>
+
+          <p>
+            Discover millions of books, articles, and knowledge
+            at your fingertips.
+          </p>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className={styles.right}>
+        <div
+          className={styles.logo}
+          onClick={() => navigate("/")}
+        >
+          ReadZone
         </div>
 
-        <br />
+        <div className={styles.card}>
+          <h2>Welcome Back</h2>
 
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <p>Log in to continue reading</p>
+
+          <form onSubmit={handleSubmit}>
+            <label>Email Address</label>
+
+            <input
+              type="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              required
+            />
+
+            <label>Password</label>
+
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+            />
+
+            <div className={styles.row}>
+              <label>
+                <input type="checkbox" />
+                Remember me
+              </label>
+
+              <span className={styles.forgot}>
+                Forgot?
+              </span>
+            </div>
+
+            <button type="submit">
+              Sign In
+            </button>
+          </form>
+
+          <p className={styles.register}>
+            New to ReadZone?{" "}
+            <span
+              onClick={() =>
+                navigate("/register")
+              }
+            >
+              Register now
+            </span>
+          </p>
         </div>
-
-        <br />
-
-        <button type="submit">
-          Login
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

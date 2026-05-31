@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #121414;
+  color: white;
+}
+
+.logo {
+  position: absolute;
+  top: 32px;
+  left: 40px;
+
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  color: #e50914;
+  cursor: pointer;
+}
+
+/* LEFT */
+.left {
+  flex: 1;
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .left {
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+    background: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f") center/cover;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.leftContent {
+  position: relative;
+  z-index: 2;
+}
+
+.leftContent h1 {
+  font-size: 48px;
+  font-weight: 800;
+}
+
+.leftContent p {
+  opacity: 0.7;
+  margin-top: 10px;
+  max-width: 400px;
+}
+
+/* RIGHT */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 16px;
+}
+
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.card p {
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  outline: none;
+}
+
+.card input:focus {
+  border-color: #e50914;
+}
+
+.card button {
+  margin-top: 10px;
+  padding: 12px;
+  background: #e50914;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.forgot {
+  cursor: pointer;
+}
+
+/* REGISTER */
+.register {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.register span {
+  color: #e50914;
+  cursor: pointer;
+  font-weight: bold;
+}

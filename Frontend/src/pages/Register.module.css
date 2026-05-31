@@ -1,0 +1,153 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #121414;
+  color: white;
+}
+
+.logo {
+  position: absolute;
+  top: 32px;
+  left: 40px;
+
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  color: #e50914;
+  cursor: pointer;
+}
+
+/* LEFT SIDE */
+
+.left {
+  flex: 1;
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .left {
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+    background: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f")
+      center/cover;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.leftContent {
+  position: relative;
+  z-index: 2;
+}
+
+.leftContent h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.leftContent p {
+  max-width: 450px;
+  opacity: 0.8;
+}
+
+/* RIGHT SIDE */
+
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 18px;
+
+  padding: 35px;
+}
+
+.card h2 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  opacity: 0.7;
+  margin-bottom: 25px;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card input {
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.05);
+
+  color: white;
+
+  outline: none;
+}
+
+.card input:focus {
+  border-color: #e50914;
+}
+
+.card button {
+  margin-top: 10px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #e50914;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.card button:hover {
+  transform: translateY(-2px);
+}
+
+.login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login span {
+  color: #e50914;
+  cursor: pointer;
+  font-weight: bold;
+}
