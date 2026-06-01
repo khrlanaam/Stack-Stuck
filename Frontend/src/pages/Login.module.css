@@ -141,3 +141,29 @@
   cursor: pointer;
   font-weight: bold;
 }
+
+/* ERROR */
+.error {
+  background: rgba(229, 9, 20, 0.15);
+  border: 1px solid rgba(229, 9, 20, 0.4);
+
+  color: #ffb3b8;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  margin-bottom: 16px;
+
+  font-size: 14px;
+}
+
+.card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* DISABLED BUTTON */
+.disabledBtn {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

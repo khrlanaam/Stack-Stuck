@@ -10,10 +10,50 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
+
+    // Frontend Validation
+    if (!name.trim()) {
+      setError("Nama wajib diisi");
+      return;
+    }
+
+    if (name.length < 3) {
+      setError("Nama minimal 3 karakter");
+      return;
+    }
+
+    if (!email.trim()) {
+      setError("Email wajib diisi");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setError("Format email tidak valid");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Password wajib diisi");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       await registerUser({
         name,
         email,
@@ -22,10 +62,12 @@ function Register() {
 
       navigate("/login");
     } catch (error) {
-      alert(
+      setError(
         error.response?.data?.error ||
         "Register gagal"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,6 +102,12 @@ function Register() {
 
           <p>Start your reading journey today</p>
 
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit}>
             <label>Full Name</label>
 
@@ -67,10 +115,10 @@ function Register() {
               type="text"
               placeholder="Abidin"
               value={name}
-              onChange={(e) =>
-                setName(e.target.value)
-              }
-              required
+              onChange={(e) => {
+                setName(e.target.value);
+                setError("");
+              }}
             />
 
             <label>Email Address</label>
@@ -79,10 +127,10 @@ function Register() {
               type="email"
               placeholder="name@example.com"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-              required
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
             />
 
             <label>Password</label>
@@ -91,14 +139,22 @@ function Register() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              required
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
             />
 
-            <button type="submit">
-              Create Account
+            <button
+              type="submit"
+              disabled={loading}
+              className={
+                loading ? styles.disabledBtn : ""
+              }
+            >
+              {loading
+                ? "Creating Account..."
+                : "Create Account"}
             </button>
           </form>
 

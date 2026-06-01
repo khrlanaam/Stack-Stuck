@@ -11,16 +11,44 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
+
+    // Frontend Validation
+    if (!email.trim()) {
+      setError("Email wajib diisi");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setError("Format email tidak valid");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Password wajib diisi");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const result = await loginUser({
         email,
         password,
       });
-
-      console.log("LOGIN RESULT:", result);
 
       login(
         result.user,
@@ -29,10 +57,12 @@ function Login() {
 
       navigate("/home");
     } catch (error) {
-      alert(
+      setError(
         error.response?.data?.error ||
-        "Login gagal"
+        "Email atau password salah"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,6 +96,12 @@ function Login() {
 
           <p>Log in to continue reading</p>
 
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit}>
             <label>Email Address</label>
 
@@ -73,10 +109,10 @@ function Login() {
               type="email"
               placeholder="name@example.com"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-              required
+              onChange={(e) =>{
+                setEmail(e.target.value);
+                setError("");
+              }}
             />
 
             <label>Password</label>
@@ -85,10 +121,10 @@ function Login() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              required
+              onChange={(e) =>{
+                setPassword(e.target.value);
+                setError("");
+              }}
             />
 
             <div className={styles.row}>
@@ -102,8 +138,14 @@ function Login() {
               </span>
             </div>
 
-            <button type="submit">
-              Sign In
+            <button
+              type="submit"
+              disabled={loading}
+              className={loading ? styles.disabledBtn : ""}
+            >
+              {loading
+                ? "Signing In..."
+                : "Sign In"}
             </button>
           </form>
 
