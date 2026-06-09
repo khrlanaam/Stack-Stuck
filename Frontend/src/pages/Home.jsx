@@ -1,6 +1,7 @@
+import { useState } from "react";
+
 import Navbar from "../components/layout/Navbar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
-import BookList from "../components/home/BookList/BookList";
 
 function Home() {
   return (
@@ -26,9 +27,7 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "32px" }}>
-            Featured Book
-          </h1>
+          <h1 style={{ fontSize: "32px" }}>Featured Book</h1>
 
           <p style={{ opacity: 0.7 }}>
             Start your reading journey from here
@@ -100,11 +99,6 @@ function Home() {
               />
             ))}
           </div>
-        </section>
-
-        {/* ALL BOOKS FROM DATABASE */}
-        <section style={{ marginTop: "40px" }}>
-          <BookList />
         </section>
       </div>
 

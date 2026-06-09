@@ -18,20 +18,40 @@ function Navbar() {
 
   return (
     <div className={styles.navbar}>
+      {/* Logo */}
       <h2
         className={styles.logo}
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         style={{ cursor: "pointer" }}
       >
         ReadZone
       </h2>
 
+      {/* Menu */}
       <div className={styles.menu}>
-        <span>Home</span>
-        <span>Categories</span>
-        <span>Trending</span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/home")}
+        >
+          Home
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/categories")}
+        >
+          Categories
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => alert("Trending page belum dibuat")}
+        >
+          Trending
+        </span>
       </div>
 
+      {/* Auth */}
       <div className={styles.auth}>
         {isAuthenticated ? (
           <>
