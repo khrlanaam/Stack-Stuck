@@ -4,11 +4,12 @@ import Landing from "../pages/Landing";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+
 import Books from "../pages/Books";
 import Borrowings from "../pages/Borrowings";
+import Categories from "../pages/Categories";
 
 import Admin from "../pages/Admin";
-
 import AdminBorrowings from "../pages/AdminBorrowings";
 
 import ManageBooks from "../pages/admin/ManageBooks";
@@ -22,11 +23,10 @@ function AppRoutes() {
   return (
     <Routes>
 
-      <Route
-        path="/"
-        element={<Landing />}
-      />
+      {/* Landing */}
+      <Route path="/" element={<Landing />} />
 
+      {/* Auth */}
       <Route
         path="/login"
         element={
@@ -45,6 +45,7 @@ function AppRoutes() {
         }
       />
 
+      {/* Home */}
       <Route
         path="/home"
         element={
@@ -54,6 +55,7 @@ function AppRoutes() {
         }
       />
 
+      {/* User Pages */}
       <Route
         path="/books"
         element={
@@ -72,8 +74,16 @@ function AppRoutes() {
         }
       />
 
-      {/* ADMIN */}
+      <Route
+        path="/categories"
+        element={
+          <ProtectedRoute>
+            <Categories />
+          </ProtectedRoute>
+        }
+      />
 
+      {/* ADMIN */}
       <Route
         path="/admin"
         element={

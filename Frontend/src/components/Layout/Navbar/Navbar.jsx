@@ -5,11 +5,7 @@ import styles from "./Navbar.module.css";
 function Navbar() {
   const navigate = useNavigate();
 
-  const {
-    user,
-    isAuthenticated,
-    logout,
-  } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -18,6 +14,7 @@ function Navbar() {
 
   return (
     <div className={styles.navbar}>
+      {/* Logo */}
       <h2
         className={styles.logo}
         onClick={() => navigate("/home")}
@@ -26,37 +23,45 @@ function Navbar() {
         ReadZone
       </h2>
 
+      {/* Menu */}
       <div className={styles.menu}>
         <span
-          onClick={() => navigate("/home")}
           style={{ cursor: "pointer" }}
+          onClick={() => navigate("/home")}
         >
           Home
         </span>
 
-        <span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/categories")}
+        >
           Categories
         </span>
 
-        <span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => alert("Trending page belum dibuat")}
+        >
           Trending
         </span>
 
         <span
-          onClick={() => navigate("/books")}
           style={{ cursor: "pointer" }}
+          onClick={() => navigate("/books")}
         >
           Books
         </span>
 
         <span
-          onClick={() => navigate("/borrowings")}
           style={{ cursor: "pointer" }}
+          onClick={() => navigate("/borrowings")}
         >
           My Borrowings
         </span>
       </div>
 
+      {/* Auth */}
       <div className={styles.auth}>
         {isAuthenticated ? (
           <>

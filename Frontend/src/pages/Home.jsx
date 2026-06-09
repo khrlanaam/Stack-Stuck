@@ -25,9 +25,7 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "32px" }}>
-            Featured Book
-          </h1>
+          <h1 style={{ fontSize: "32px" }}>Featured Book</h1>
 
           <p style={{ opacity: 0.7 }}>
             Start your reading journey from here
@@ -42,10 +40,37 @@ function Home() {
               color: "#000",
               borderRadius: "8px",
               cursor: "pointer",
+              border: "none",
             }}
           >
             Read Now
           </button>
+        </section>
+
+        {/* CONTINUE READING */}
+        <section style={{ marginTop: "40px" }}>
+          <h2>Continue Reading</h2>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              overflowX: "auto",
+              paddingTop: "10px",
+            }}
+          >
+            {[1, 2, 3, 4, 5].map((item) => (
+              <div
+                key={item}
+                style={{
+                  minWidth: "120px",
+                  height: "180px",
+                  background: "#222",
+                  borderRadius: "10px",
+                }}
+              />
+            ))}
+          </div>
         </section>
 
         {/* RECOMMENDED */}
@@ -74,15 +99,14 @@ function Home() {
           </div>
         </section>
 
-        {/* ALL BOOKS PREVIEW */}
+        {/* LIBRARY PREVIEW */}
         <section style={{ marginTop: "40px" }}>
           <h2>Library Preview</h2>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fill, minmax(120px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
               gap: "12px",
               marginTop: "10px",
             }}

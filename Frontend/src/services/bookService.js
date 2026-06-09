@@ -4,14 +4,11 @@ import api from "./api";
 export const getBooks = async () => {
   const token = localStorage.getItem("token");
 
-  const response = await api.get(
-    "/api/books",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await api.get("/api/books", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
@@ -20,14 +17,11 @@ export const getBooks = async () => {
 export const getBookById = async (id) => {
   const token = localStorage.getItem("token");
 
-  const response = await api.get(
-    `/api/books/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await api.get(`/api/books/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };

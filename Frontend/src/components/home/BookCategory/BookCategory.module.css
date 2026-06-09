@@ -1,0 +1,37 @@
+.categoryContainer {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 25px;
+  scrollbar-width: none;
+}
+
+.categoryContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryButton {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #444;
+  background-color: #111;
+  color: #aaa;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+}
+
+.categoryButton:hover {
+  background-color: #222;
+  color: #fff;
+  border-color: #666;
+}
+
+.activeCategory {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+  font-weight: bold;
+}
