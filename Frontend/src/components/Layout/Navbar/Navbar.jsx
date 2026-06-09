@@ -20,16 +20,41 @@ function Navbar() {
     <div className={styles.navbar}>
       <h2
         className={styles.logo}
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         style={{ cursor: "pointer" }}
       >
         ReadZone
       </h2>
 
       <div className={styles.menu}>
-        <span>Home</span>
-        <span>Categories</span>
-        <span>Trending</span>
+        <span
+          onClick={() => navigate("/home")}
+          style={{ cursor: "pointer" }}
+        >
+          Home
+        </span>
+
+        <span>
+          Categories
+        </span>
+
+        <span>
+          Trending
+        </span>
+
+        <span
+          onClick={() => navigate("/books")}
+          style={{ cursor: "pointer" }}
+        >
+          Books
+        </span>
+
+        <span
+          onClick={() => navigate("/borrowings")}
+          style={{ cursor: "pointer" }}
+        >
+          My Borrowings
+        </span>
       </div>
 
       <div className={styles.auth}>

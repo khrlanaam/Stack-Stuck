@@ -2,11 +2,21 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function GuestRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) return null;
 
-  return !isAuthenticated ? children : <Navigate to="/home" replace />;
+  if (!isAuthenticated) {
+    return children;
+  }
+
+  // Jika admin
+  if (user?.role === "admin") {
+    return <Navigate to="/admin" replace />;
+  }
+
+  // Jika user biasa
+  return <Navigate to="/home" replace />;
 }
 
 export default GuestRoute;
