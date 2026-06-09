@@ -1,50 +1,107 @@
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
+  z-index: 1000;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  background: rgba(0,0,0,.6);
-  backdrop-filter: blur(10px);
-  z-index: 9999;
+
+  padding: 18px 60px;
+
+  background: rgba(11, 11, 15, 0.85);
+  backdrop-filter: blur(20px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .logo {
+  font-size: 1.8rem;
+  font-weight: 800;
   color: #e50914;
-  font-weight: bold;
+  cursor: pointer;
 }
 
 .menu {
   display: flex;
-  gap: 20px;
-  opacity: 0.8;
-  font-size: 14px;
+  gap: 32px;
 }
 
-.auth button {
-  margin-left: 10px;
-  padding: 6px 12px;
-  border: none;
+.menu span {
+  color: rgba(255,255,255,0.8);
   cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.menu span:hover {
+  color: white;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .username {
-  color: white;
-  margin-right: 12px;
-  font-size: 14px;
+  color: rgba(255,255,255,0.8);
 }
 
-.auth button:first-child {
+.loginBtn {
   background: transparent;
   color: white;
-  border: 1px solid white;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 10px 16px;
 }
 
-.auth button:last-child {
+.registerBtn {
   background: #e50914;
   color: white;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.logoutBtn {
+  background: #e50914;
+  color: white;
+
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.registerBtn:hover,
+.logoutBtn:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
 }

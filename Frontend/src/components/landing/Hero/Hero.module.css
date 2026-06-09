@@ -1,62 +1,81 @@
 .hero {
-  height: 75vh;
-  min-height: 600px;
+  height: 85vh;
+  min-height: 650px;
 
-  background: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f")
-    center center / cover no-repeat;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f")
+      center center / cover no-repeat;
 
   display: flex;
   align-items: center;
 }
 
 .overlay {
-  width: 100%;
-  height: 100%;
+  max-width: 750px;
+  padding: 0 80px;
+}
 
-  background: rgba(0, 0, 0, 0.65);
+.badge {
+  display: inline-block;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 8px 14px;
 
-  padding: 60px;
+  margin-bottom: 24px;
+
+  border-radius: 999px;
+
+  background: rgba(229, 9, 20, 0.15);
+
+  border: 1px solid rgba(229, 9, 20, 0.35);
+
+  color: #ff5c64;
+
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .overlay h1 {
-  max-width: 700px;
-
-  font-size: 64px;
-  font-weight: 800;
-  line-height: 1.1;
+  margin: 0;
 
   color: white;
-  margin: 0;
+
+  font-size: 62px;
+
+  font-weight: 800;
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
 }
 
 .overlay p {
-  margin-top: 16px;
+  margin-top: 24px;
 
-  max-width: 550px;
-
-  font-size: 18px;
-  line-height: 1.6;
+  max-width: 600px;
 
   color: rgba(255, 255, 255, 0.85);
+
+  font-size: 18px;
+
+  line-height: 1.8;
 }
 
 .buttons {
-  margin-top: 30px;
-
   display: flex;
-  gap: 12px;
+  gap: 16px;
+
+  margin-top: 36px;
 }
 
-.buttons button {
-  padding: 12px 24px;
+.primaryBtn,
+.secondaryBtn {
+  padding: 14px 28px;
 
   border-radius: 8px;
-  border: none;
 
   font-size: 15px;
   font-weight: 600;
@@ -66,56 +85,60 @@
   transition: 0.2s ease;
 }
 
-.buttons button:hover {
+.primaryBtn:hover,
+.secondaryBtn:hover {
   transform: translateY(-2px);
 }
 
-.buttons button:first-child {
+.primaryBtn {
   background: #e50914;
   color: white;
+  border: none;
 }
 
-.buttons button:last-child {
-  background: transparent;
-  border: 1px solid white;
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.08);
+
   color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* TABLET */
 @media (max-width: 768px) {
   .hero {
-    min-height: 500px;
     height: auto;
+    min-height: 550px;
   }
 
   .overlay {
-    padding: 40px 24px;
+    padding: 60px 24px;
   }
 
   .overlay h1 {
-    font-size: 42px;
-    max-width: 100%;
+    font-size: 48px;
+    letter-spacing: -1px;
   }
 
   .overlay p {
     font-size: 16px;
-    max-width: 100%;
   }
 }
 
 /* MOBILE */
 @media (max-width: 480px) {
   .overlay h1 {
-    font-size: 34px;
-    line-height: 1.2;
+    font-size: 36px;
+    line-height: 1.15;
   }
 
   .buttons {
-    width: 100%;
     flex-direction: column;
+    width: 100%;
   }
 
-  .buttons button {
+  .primaryBtn,
+  .secondaryBtn {
     width: 100%;
   }
 }

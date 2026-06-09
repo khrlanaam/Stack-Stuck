@@ -1,15 +1,19 @@
 .rowWrapper {
-  padding: 20px 40px;
+  padding: 0 40px;
+  margin-top: 50px;
 }
 
 .rowWrapper h2 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: white;
 }
 
 .row {
   display: flex;
+  gap: 16px;
+
   overflow-x: auto;
-  gap: 12px;
+
   scrollbar-width: none;
 }
 

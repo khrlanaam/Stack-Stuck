@@ -17,65 +17,68 @@ function Navbar() {
   };
 
   return (
-    <div className={styles.navbar}>
-      {/* Logo */}
-      <h2
+    <nav className={styles.navbar}>
+      {/* LEFT */}
+      <div
         className={styles.logo}
-        onClick={() => navigate("/home")}
-        style={{ cursor: "pointer" }}
+        onClick={() => navigate("/")}
       >
         ReadZone
-      </h2>
+      </div>
 
-      {/* Menu */}
+      {/* CENTER */}
       <div className={styles.menu}>
-        <span
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/home")}
-        >
+        <span onClick={() => navigate("/")}>
           Home
         </span>
 
-        <span
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/categories")}
-        >
+        <span>
           Categories
         </span>
 
-        <span
-          style={{ cursor: "pointer" }}
-          onClick={() => alert("Trending page belum dibuat")}
-        >
+        <span>
           Trending
+        </span>
+
+        <span>
+          About
         </span>
       </div>
 
-      {/* Auth */}
+      {/* RIGHT */}
       <div className={styles.auth}>
         {isAuthenticated ? (
           <>
             <span className={styles.username}>
-              Hi, {user?.username || user?.name || "User"}
+              Hi, {user?.name || "User"}
             </span>
 
-            <button onClick={handleLogout}>
+            <button
+              className={styles.logoutBtn}
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </>
         ) : (
           <>
-            <button onClick={() => navigate("/login")}>
+            <button
+              className={styles.loginBtn}
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
 
-            <button onClick={() => navigate("/register")}>
-              Register
+            <button
+              className={styles.registerBtn}
+              onClick={() => navigate("/register")}
+            >
+              Start Reading
             </button>
           </>
         )}
       </div>
-    </div>
+    </nav>
   );
 }
 

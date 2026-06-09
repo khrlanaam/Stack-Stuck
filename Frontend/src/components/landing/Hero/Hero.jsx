@@ -5,25 +5,40 @@ function Hero() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.hero}>
+    <section className={styles.hero}>
       <div className={styles.overlay}>
-        <h1>Unlimited Books, Stories & Knowledge</h1>
+
+        <h1>
+          Discover Unlimited
+          <br />
+          Books, Stories &
+          <br />
+          Knowledge
+        </h1>
 
         <p>
-          ReadZone brings thousands of books in a Netflix-style experience.
+          Explore thousands of books across multiple genres.
+          Read anytime, anywhere, and build your personal
+          library with a modern reading experience.
         </p>
 
         <div className={styles.buttons}>
-          <button onClick={() => navigate("/register")}>
+          <button
+            className={styles.primaryBtn}
+            onClick={() => navigate("/register")}
+          >
             Start Reading
           </button>
 
-          <button onClick={() => navigate("/login")}>
+          <button
+            className={styles.secondaryBtn}
+            onClick={() => navigate("/login")}
+          >
             Sign In
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
