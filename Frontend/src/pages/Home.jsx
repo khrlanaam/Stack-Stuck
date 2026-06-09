@@ -1,4 +1,4 @@
-import Navbar from "../components/layout/Navbar/Navbar";
+import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 
 function Home() {
@@ -10,7 +10,7 @@ function Home() {
         minHeight: "100vh",
       }}
     >
-      <Navbar />
+      <AppNavbar />
 
       <div style={{ padding: "90px 40px" }}>
         {/* HERO FEATURED */}

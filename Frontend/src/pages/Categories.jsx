@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Navbar from "../components/layout/Navbar/Navbar";
+import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 
 import BookCategory from "../components/home/BookCategory/BookCategory";
@@ -17,7 +17,7 @@ function Categories() {
         minHeight: "100vh",
       }}
     >
-      <Navbar />
+      <AppNavbar />
 
       <div style={{ padding: "100px 40px" }}>
         <h1>Browse by Category</h1>

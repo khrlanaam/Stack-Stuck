@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-import Navbar from "../components/layout/Navbar/Navbar";
+import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 
 import { getBooks } from "../services/bookService";
@@ -84,7 +84,7 @@ function Books() {
         color: "white",
       }}
     >
-      <Navbar />
+      <AppNavbar />
 
       <div
         style={{

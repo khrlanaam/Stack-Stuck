@@ -1,6 +1,9 @@
-import Navbar from "../components/layout/Navbar/Navbar";
+import LandingNavbar from "../components/layout/LandingNavbar/LandingNavbar";
 import Hero from "../components/landing/Hero/Hero";
+import About from "../components/landing/About/About";
+import WhyReadzone from "../components/landing/WhyReadzone/WhyReadzone";
 import Books from "../components/landing/Books/Books";
+import Footer from "../components/layout/Footer/Footer";
 
 function Landing() {
   return (
@@ -11,44 +14,19 @@ function Landing() {
         minHeight: "100vh",
       }}
     >
-      <Navbar />
+      <LandingNavbar />
 
       <Hero />
 
+      <About />
+
+      <WhyReadzone />
+
       <section style={{ paddingBottom: "60px" }}>
         <Books title="Trending Books" />
-        <Books title="New Releases" />
-        <Books title="Editor's Picks" />
       </section>
 
-      {/* CTA Section */}
-      <section
-        style={{
-          padding: "80px 40px",
-          textAlign: "center",
-          borderTop: "1px solid rgba(255,255,255,.08)",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "42px",
-            marginBottom: "12px",
-          }}
-        >
-          Start Reading Today
-        </h2>
-
-        <p
-          style={{
-            opacity: 0.7,
-            maxWidth: "600px",
-            margin: "0 auto",
-          }}
-        >
-          Discover thousands of books and build your personal
-          reading library.
-        </p>
-      </section>
+      <Footer />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
-import Navbar from "../components/layout/Navbar/Navbar";
+import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 
 import {
@@ -120,7 +120,7 @@ function Borrowings() {
         color: "#fff",
       }}
     >
-      <Navbar />
+      <AppNavbar />
 
       <div
         style={{
