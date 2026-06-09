@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Navbar from "../components/layout/Navbar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
 
@@ -94,6 +92,31 @@ function Home() {
                   minWidth: "120px",
                   height: "180px",
                   background: "#333",
+                  borderRadius: "10px",
+                }}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* LIBRARY PREVIEW */}
+        <section style={{ marginTop: "40px" }}>
+          <h2>Library Preview</h2>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              gap: "12px",
+              marginTop: "10px",
+            }}
+          >
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+              <div
+                key={item}
+                style={{
+                  height: "180px",
+                  background: "#444",
                   borderRadius: "10px",
                 }}
               />

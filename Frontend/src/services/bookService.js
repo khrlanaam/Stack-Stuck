@@ -1,5 +1,6 @@
 import api from "./api";
 
+// GET semua buku
 export const getBooks = async () => {
   const token = localStorage.getItem("token");
 
@@ -9,5 +10,18 @@ export const getBooks = async () => {
     },
   });
 
-  return response.data.data;
+  return response.data;
+};
+
+// GET buku berdasarkan ID
+export const getBookById = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.get(`/api/books/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
 };

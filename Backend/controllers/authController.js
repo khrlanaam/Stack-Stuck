@@ -9,7 +9,7 @@ const register = async (req, res) => {
 
     if (!name || !email || !password) {
       return res.status(400).json({
-        error: "Semua field wajib diisi"
+        error: "Semua field wajib diisi",
       });
     }
 
@@ -20,11 +20,14 @@ const register = async (req, res) => {
 
     if (existing.length > 0) {
       return res.status(400).json({
-        error: "Email sudah terdaftar"
+        error: "Email sudah terdaftar",
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    );
 
     await db.query(
       "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
@@ -32,22 +35,33 @@ const register = async (req, res) => {
     );
 
     res.status(201).json({
-      message: "Register berhasil"
+      message: "Register berhasil",
     });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+
+    console.log("REGISTER ERROR:", err);
+
+    res.status(500).json({
+      error: err.message,
+    });
+
   }
 };
 
 // LOGIN
 const login = async (req, res) => {
   try {
+
     const { email, password } = req.body;
+
+    console.log("================================");
+    console.log("LOGIN ATTEMPT");
+    console.log("EMAIL:", email);
 
     if (!email || !password) {
       return res.status(400).json({
-        error: "Email dan password wajib diisi"
+        error: "Email dan password wajib diisi",
       });
     }
 
@@ -56,34 +70,59 @@ const login = async (req, res) => {
       [email]
     );
 
+    console.log("QUERY RESULT:", users);
+
     if (users.length === 0) {
+      console.log("USER NOT FOUND");
+
       return res.status(401).json({
-        error: "Email atau password salah"
+        error: "Email atau password salah",
       });
     }
 
     const user = users[0];
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("USER FOUND:");
+    console.log({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    console.log("INPUT PASSWORD :", password);
+    console.log("HASH PASSWORD  :", user.password);
+    console.log("PASSWORD MATCH :", isMatch);
 
     if (!isMatch) {
+
+      console.log("PASSWORD INVALID");
+
       return res.status(401).json({
-        error: "Email atau password salah"
+        error: "Email atau password salah",
       });
     }
 
-    // JWT TOKEN
     const token = jwt.sign(
       {
         id: user.id,
         email: user.email,
-        role: user.role
+        role: user.role,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: process.env.JWT_EXPIRES || "1d"
+        expiresIn:
+          process.env.JWT_EXPIRES || "1d",
       }
     );
+
+    console.log("LOGIN SUCCESS");
+    console.log("================================");
 
     res.status(200).json({
       message: "Login berhasil",
@@ -92,13 +131,23 @@ const login = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
-      }
+        role: user.role,
+      },
     });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+
+    console.log("LOGIN ERROR:");
+    console.log(err);
+
+    res.status(500).json({
+      error: err.message,
+    });
+
   }
 };
 
-module.exports = { register, login };
+module.exports = {
+  register,
+  login,
+};

@@ -5,11 +5,7 @@ import styles from "./Navbar.module.css";
 function Navbar() {
   const navigate = useNavigate();
 
-  const {
-    user,
-    isAuthenticated,
-    logout,
-  } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -33,16 +29,30 @@ function Navbar() {
         </span>
 
         <span>
-          Categories
-        </span>
-
-        <span>
-          Trending
-        </span>
-
-        <span>
           About
         </span>
+
+        <span>
+          Why ReadZone
+        </span>
+
+        {isAuthenticated && (
+          <>
+            <span
+              onClick={() => navigate("/books")}
+            >
+              Books
+            </span>
+
+            <span
+              onClick={() =>
+                navigate("/borrowings")
+              }
+            >
+              My Borrowings
+            </span>
+          </>
+        )}
       </div>
 
       {/* RIGHT */}

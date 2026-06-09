@@ -4,7 +4,17 @@ import Landing from "../pages/Landing";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+
+import Books from "../pages/Books";
+import Borrowings from "../pages/Borrowings";
 import Categories from "../pages/Categories";
+
+import Admin from "../pages/Admin";
+import AdminBorrowings from "../pages/AdminBorrowings";
+
+import ManageBooks from "../pages/admin/ManageBooks";
+import ManageUsers from "../pages/admin/ManageUsers";
+import ManageBorrowings from "../pages/admin/ManageBorrowings";
 
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
@@ -12,10 +22,11 @@ import GuestRoute from "./GuestRoute";
 function AppRoutes() {
   return (
     <Routes>
+
       {/* Landing */}
       <Route path="/" element={<Landing />} />
 
-      {/* Login */}
+      {/* Auth */}
       <Route
         path="/login"
         element={
@@ -25,7 +36,6 @@ function AppRoutes() {
         }
       />
 
-      {/* Register */}
       <Route
         path="/register"
         element={
@@ -45,7 +55,25 @@ function AppRoutes() {
         }
       />
 
-      {/* Categories */}
+      {/* User Pages */}
+      <Route
+        path="/books"
+        element={
+          <ProtectedRoute>
+            <Books />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/borrowings"
+        element={
+          <ProtectedRoute>
+            <Borrowings />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/categories"
         element={
@@ -54,6 +82,53 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      {/* ADMIN */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/books"
+        element={
+          <ProtectedRoute>
+            <ManageBooks />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute>
+            <ManageUsers />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/borrowings"
+        element={
+          <ProtectedRoute>
+            <ManageBorrowings />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/pending"
+        element={
+          <ProtectedRoute>
+            <AdminBorrowings />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   );
 }

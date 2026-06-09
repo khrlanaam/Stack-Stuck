@@ -19,7 +19,6 @@ function Login() {
 
     setError("");
 
-    // Frontend Validation
     if (!email.trim()) {
       setError("Email wajib diisi");
       return;
@@ -50,13 +49,27 @@ function Login() {
         password,
       });
 
+      console.log("LOGIN RESULT:", result);
+      console.log("USER:", result.user);
+      console.log("ROLE:", result.user?.role);
+
       login(
         result.user,
         result.token
       );
+      console.log("ROLE TYPE:", typeof result.user?.role);
+      console.log("ROLE VALUE:", result.user?.role);
+      if (result.user?.role === "admin") {
+        console.log("REDIRECT ADMIN");
+        navigate("/admin");
+      } else {
+        console.log("REDIRECT USER");
+        navigate("/home");
+      }
 
-      navigate("/home");
     } catch (error) {
+      console.error(error);
+
       setError(
         error.response?.data?.error ||
         "Email atau password salah"
@@ -68,7 +81,6 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      {/* LEFT SIDE */}
       <div className={styles.left}>
         <div className={styles.overlay}></div>
 
@@ -76,13 +88,12 @@ function Login() {
           <h1>Read Without Limits</h1>
 
           <p>
-            Discover millions of books, articles, and knowledge
-            at your fingertips.
+            Discover millions of books, articles, and
+            knowledge at your fingertips.
           </p>
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
       <div className={styles.right}>
         <div
           className={styles.logo}
@@ -109,7 +120,7 @@ function Login() {
               type="email"
               placeholder="name@example.com"
               value={email}
-              onChange={(e) =>{
+              onChange={(e) => {
                 setEmail(e.target.value);
                 setError("");
               }}
@@ -121,7 +132,7 @@ function Login() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) =>{
+              onChange={(e) => {
                 setPassword(e.target.value);
                 setError("");
               }}
@@ -141,7 +152,11 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className={loading ? styles.disabledBtn : ""}
+              className={
+                loading
+                  ? styles.disabledBtn
+                  : ""
+              }
             >
               {loading
                 ? "Signing In..."

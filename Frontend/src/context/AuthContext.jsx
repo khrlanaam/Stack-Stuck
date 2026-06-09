@@ -1,4 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const AuthContext = createContext();
 
@@ -7,10 +12,13 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // init storage
+  // INIT STORAGE
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    const storedUser =
+      localStorage.getItem("user");
+
+    const storedToken =
+      localStorage.getItem("token");
 
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
@@ -20,12 +28,22 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const login = (userData, tokenData) => {
+  const login = (
+    userData,
+    tokenData
+  ) => {
     setUser(userData);
     setToken(tokenData);
 
-    localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", tokenData);
+    localStorage.setItem(
+      "user",
+      JSON.stringify(userData)
+    );
+
+    localStorage.setItem(
+      "token",
+      tokenData
+    );
   };
 
   const logout = () => {
@@ -37,6 +55,9 @@ export function AuthProvider({ children }) {
   };
 
   const isAuthenticated = !!token;
+
+  // DEBUG
+  console.log("AUTH USER:", user);
 
   return (
     <AuthContext.Provider
@@ -54,4 +75,5 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () =>
+  useContext(AuthContext);

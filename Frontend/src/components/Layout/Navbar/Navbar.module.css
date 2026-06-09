@@ -30,7 +30,6 @@
 .menu span {
   color: rgba(255,255,255,0.8);
   cursor: pointer;
-
   transition: 0.2s;
 }
 
@@ -51,39 +50,27 @@
 .loginBtn {
   background: transparent;
   color: white;
-
   border: none;
-
   cursor: pointer;
-
   padding: 10px 16px;
 }
 
 .registerBtn {
   background: #e50914;
   color: white;
-
   border: none;
-
   padding: 10px 18px;
-
   border-radius: 8px;
-
   cursor: pointer;
-
   font-weight: 600;
 }
 
 .logoutBtn {
   background: #e50914;
   color: white;
-
   border: none;
-
   padding: 10px 16px;
-
   border-radius: 8px;
-
   cursor: pointer;
 }
 
