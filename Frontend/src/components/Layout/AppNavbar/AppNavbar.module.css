@@ -67,3 +67,33 @@
 .logoutBtn:hover {
   opacity: 0.9;
 }
+
+/* Tambahkan ini di bagian bawah file AppNavbar.module.css milikmu */
+
+.searchForm {
+  flex: 1;
+  max-width: 400px; /* Membatasi panjang maksimal kotak pencarian */
+  margin: 0 20px;   /* Memberi jarak kiri-kanan agar tidak menempel ke menu */
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #222; /* Warna abu gelap senada dengan tema Home */
+  color: #fff;
+  border: 1px solid #444; /* Border tipis samar */
+  border-radius: 20px;    /* Membuat ujung kotak membulat modern */
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Efek menyala sedikit ketika kolom diklik user */
+.searchInput:focus {
+  border-color: #fff;
+  background-color: #111;
+}
+
+.searchInput::placeholder {
+  color: #777; /* Warna teks petunjuk (placeholder) sedikit redup */
+}
