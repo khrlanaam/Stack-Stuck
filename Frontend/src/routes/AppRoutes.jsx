@@ -15,14 +15,13 @@ import AdminBorrowings from "../pages/AdminBorrowings";
 import ManageBooks from "../pages/admin/ManageBooks";
 import ManageUsers from "../pages/admin/ManageUsers";
 import ManageBorrowings from "../pages/admin/ManageBorrowings";
-
+import ManageCategories from "../pages/admin/ManageCategories";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
 
 function AppRoutes() {
   return (
     <Routes>
-
       {/* Landing */}
       <Route path="/" element={<Landing />} />
 
@@ -119,7 +118,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/admin/categories"
+        element={
+          <ProtectedRoute>
+            <ManageCategories />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/admin/pending"
         element={
@@ -128,7 +134,6 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
     </Routes>
   );
 }

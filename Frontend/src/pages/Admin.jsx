@@ -10,6 +10,7 @@ import {
   FaClipboardList,
   FaExchangeAlt,
   FaCheckCircle,
+  FaTags,
 } from "react-icons/fa";
 
 import { getAdminStats } from "../services/adminService";
@@ -73,7 +74,6 @@ function Admin() {
       confirmButtonText: "Approve",
     });
 
-
     if (!result.isConfirmed) return;
 
     try {
@@ -92,16 +92,12 @@ function Admin() {
     } catch (err) {
       Swal.fire({
         title: "Gagal",
-        text:
-          err.response?.data?.message ||
-          "Gagal approve",
+        text: err.response?.data?.message || "Gagal approve",
         icon: "error",
         background: "#181818",
         color: "#fff",
       });
     }
-
-
   };
 
   const handleReject = async (id) => {
@@ -116,7 +112,6 @@ function Admin() {
       cancelButtonColor: "#444",
       confirmButtonText: "Reject",
     });
-
 
     if (!result.isConfirmed) return;
 
@@ -135,24 +130,15 @@ function Admin() {
     } catch (err) {
       Swal.fire({
         title: "Gagal",
-        text:
-          err.response?.data?.message ||
-          "Gagal reject",
+        text: err.response?.data?.message || "Gagal reject",
         icon: "error",
         background: "#181818",
         color: "#fff",
       });
     }
-
-
   };
 
-  const statCard = (
-    title,
-    value,
-    icon,
-    color
-  ) => (
+  const statCard = (title, value, icon, color) => (
     <div
       style={{
         background: "#181818",
@@ -162,19 +148,20 @@ function Admin() {
         justifyContent: "space-between",
         alignItems: "center",
       }}
-    > <div>
+    >
+      {" "}
+      <div>
         <p
           style={{
             color: "#aaa",
             marginBottom: "10px",
           }}
         >
-          {title} </p>
-
+          {title}{" "}
+        </p>
 
         <h1>{value}</h1>
       </div>
-
       <div
         style={{
           fontSize: "40px",
@@ -184,8 +171,6 @@ function Admin() {
         {icon}
       </div>
     </div>
-
-
   );
 
   return (
@@ -201,30 +186,29 @@ function Admin() {
       <div
         style={{
           display: "flex",
-          justifyContent:
-            "space-between",
+          justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "40px",
         }}
-      > <div>
+      >
+        {" "}
+        <div>
           <h1
             style={{
               fontSize: "38px",
             }}
           >
-            Admin Dashboard </h1>
+            Admin Dashboard{" "}
+          </h1>
 
-
-          < p
+          <p
             style={{
               color: "#aaa",
-            }
-            }
+            }}
           >
             Library Management System
-          </p >
-        </div >
-
+          </p>
+        </div>
         <button
           onClick={handleLogout}
           style={{
@@ -239,55 +223,37 @@ function Admin() {
         >
           Logout
         </button>
-      </div >
+      </div>
 
       {/* STATS */}
-      < div
+      <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit,minmax(250px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
           gap: "20px",
         }}
       >
-        {
-          statCard(
-            "Total Books",
-            stats.totalBooks,
-            < FaBook />,
-            "#2196f3"
-          )}
+        {statCard("Total Books", stats.totalBooks, <FaBook />, "#2196f3")}
 
-        {
-          statCard(
-            "Total Users",
-            stats.totalUsers,
-            <FaUsers />,
-            "#ff9800"
-          )
-        }
+        {statCard("Total Users", stats.totalUsers, <FaUsers />, "#ff9800")}
 
-        {
-          statCard(
-            "Borrowings",
-            stats.totalBorrowings,
-            <FaClipboardList />,
-            "#9c27b0"
-          )
-        }
+        {statCard(
+          "Borrowings",
+          stats.totalBorrowings,
+          <FaClipboardList />,
+          "#9c27b0",
+        )}
 
-        {
-          statCard(
-            "Active Borrowings",
-            stats.activeBorrowings,
-            <FaExchangeAlt />,
-            "#00c853"
-          )
-        }
-      </div >
+        {statCard(
+          "Active Borrowings",
+          stats.activeBorrowings,
+          <FaExchangeAlt />,
+          "#00c853",
+        )}
+      </div>
 
       {/* PENDING */}
-      < div
+      <div
         style={{
           marginTop: "50px",
         }}
@@ -300,118 +266,93 @@ function Admin() {
           Pending Requests
         </h2>
 
-        {
-          pendingBorrowings.length === 0 ? (
-            <div
+        {pendingBorrowings.length === 0 ? (
+          <div
+            style={{
+              background: "#181818",
+              padding: "30px",
+              borderRadius: "15px",
+              textAlign: "center",
+            }}
+          >
+            <FaCheckCircle size={50} color="#00c853" />
+
+            <h3
               style={{
-                background: "#181818",
-                padding: "30px",
-                borderRadius: "15px",
-                textAlign: "center",
+                marginTop: "15px",
               }}
             >
-              <FaCheckCircle
-                size={50}
-                color="#00c853"
-              />
+              Tidak ada request pending
+            </h3>
+          </div>
+        ) : (
+          pendingBorrowings.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                background: "#181818",
+                padding: "20px",
+                borderRadius: "15px",
+                marginBottom: "15px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <h3>{item.book_title}</h3>
 
-              <h3
-                style={{
-                  marginTop: "15px",
-                }}
-              >
-                Tidak ada request pending
-              </h3>
-            </div>
-          ) : (
-            pendingBorrowings.map((item) => (
+                <p>User: {item.user_name}</p>
+
+                <p>
+                  Due Date:{" "}
+                  {new Date(item.due_date).toLocaleDateString("id-ID")}
+                </p>
+              </div>
+
               <div
-                key={item.id}
                 style={{
-                  background: "#181818",
-                  padding: "20px",
-                  borderRadius: "15px",
-                  marginBottom: "15px",
                   display: "flex",
-                  justifyContent:
-                    "space-between",
-                  alignItems: "center",
+                  gap: "10px",
                 }}
               >
-                <div>
-                  <h3>{item.book_title}</h3>
-
-                  <p>
-                    User:
-                    {" "}
-                    {item.user_name}
-                  </p>
-
-                  <p>
-                    Due Date:
-                    {" "}
-                    {new Date(
-                      item.due_date
-                    ).toLocaleDateString(
-                      "id-ID"
-                    )}
-                  </p>
-                </div>
-
-                <div
+                <button
+                  onClick={() => handleApprove(item.id)}
                   style={{
-                    display: "flex",
-                    gap: "10px",
+                    background: "#00c853",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 18px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
                   }}
                 >
-                  <button
-                    onClick={() =>
-                      handleApprove(item.id)
-                    }
-                    style={{
-                      background: "#00c853",
-                      color: "#fff",
-                      border: "none",
-                      padding:
-                        "10px 18px",
-                      borderRadius:
-                        "8px",
-                      cursor: "pointer",
-                      fontWeight:
-                        "bold",
-                    }}
-                  >
-                    Approve
-                  </button>
+                  Approve
+                </button>
 
-                  <button
-                    onClick={() =>
-                      handleReject(item.id)
-                    }
-                    style={{
-                      background: "#e50914",
-                      color: "#fff",
-                      border: "none",
-                      padding:
-                        "10px 18px",
-                      borderRadius:
-                        "8px",
-                      cursor: "pointer",
-                      fontWeight:
-                        "bold",
-                    }}
-                  >
-                    Reject
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleReject(item.id)}
+                  style={{
+                    background: "#e50914",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 18px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Reject
+                </button>
               </div>
-            ))
-          )
-        }
-      </div >
+            </div>
+          ))
+        )}
+      </div>
 
       {/* MENU */}
-      < div
+      <div
         style={{
           marginTop: "50px",
         }}
@@ -421,16 +362,14 @@ function Admin() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(250px,1fr))",
+            gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
             gap: "20px",
             marginTop: "20px",
           }}
         >
+          {/* BOOKS */}
           <div
-            onClick={() =>
-              navigate("/admin/books")
-            }
+            onClick={() => navigate("/admin/books")}
             style={{
               background: "#181818",
               padding: "30px",
@@ -438,17 +377,13 @@ function Admin() {
               cursor: "pointer",
             }}
           >
-            <FaBook
-              size={40}
-              color="#2196f3"
-            />
+            <FaBook size={40} color="#2196f3" />
             <h3>Manage Books</h3>
           </div>
 
+          {/* USERS */}
           <div
-            onClick={() =>
-              navigate("/admin/users")
-            }
+            onClick={() => navigate("/admin/users")}
             style={{
               background: "#181818",
               padding: "30px",
@@ -456,19 +391,13 @@ function Admin() {
               cursor: "pointer",
             }}
           >
-            <FaUsers
-              size={40}
-              color="#ff9800"
-            />
+            <FaUsers size={40} color="#ff9800" />
             <h3>Manage Users</h3>
           </div>
 
+          {/* BORROWINGS */}
           <div
-            onClick={() =>
-              navigate(
-                "/admin/borrowings"
-              )
-            }
+            onClick={() => navigate("/admin/borrowings")}
             style={{
               background: "#181818",
               padding: "30px",
@@ -476,19 +405,26 @@ function Admin() {
               cursor: "pointer",
             }}
           >
-            <FaClipboardList
-              size={40}
-              color="#9c27b0"
-            />
-            <h3>
-              Manage Borrowings
-            </h3>
+            <FaClipboardList size={40} color="#9c27b0" />
+            <h3>Manage Borrowings</h3>
+          </div>
+
+          {/* CATEGORIES */}
+          <div
+            onClick={() => navigate("/admin/categories")}
+            style={{
+              background: "#181818",
+              padding: "30px",
+              borderRadius: "15px",
+              cursor: "pointer",
+            }}
+          >
+            <FaTags size={40} color="#00c853" />
+            <h3>Manage Categories</h3>
           </div>
         </div>
-      </div >
-    </div >
-
-
+      </div>
+    </div>
   );
 }
 
