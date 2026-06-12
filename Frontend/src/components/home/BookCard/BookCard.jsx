@@ -10,8 +10,7 @@ function BookCard({ book }) {
     >
       <img
         src={
-          book.cover_url ||
-          "https://via.placeholder.com/180x250?text=No+Cover"
+          book.cover_url || "https://via.placeholder.com/180x250?text=No+Cover"
         }
         alt={book.title}
         style={{
@@ -46,31 +45,7 @@ function BookCard({ book }) {
           gap: "8px",
           marginTop: "12px",
         }}
-      >
-        <button
-          style={{
-            flex: 1,
-            padding: "8px",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          Edit
-        </button>
-
-        <button
-          style={{
-            flex: 1,
-            padding: "8px",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          Delete
-        </button>
-      </div>
+      ></div>
     </div>
   );
 }
