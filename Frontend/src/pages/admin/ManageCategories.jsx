@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -30,7 +31,14 @@ function ManageCategories() {
   // Tambah kategori
   const handleAddCategory = async () => {
     if (!newCategory.trim()) {
-      alert("Nama kategori tidak boleh kosong");
+      Swal.fire({
+        icon: "warning",
+        title: "Kategori Kosong",
+        text: "Nama kategori tidak boleh kosong",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
       return;
     }
 
@@ -41,7 +49,14 @@ function ManageCategories() {
 
       fetchCategories();
 
-      alert("Kategori berhasil ditambahkan");
+      Swal.fire({
+        icon: "success",
+        title: "Kategori Berhasil Ditambahkan",
+        text: "Kategori baru berhasil disimpan ke database",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
     } catch (error) {
       console.error("Error tambah kategori:", error);
     }
@@ -49,9 +64,7 @@ function ManageCategories() {
 
   // Hapus kategori
   const handleDeleteCategory = async (id) => {
-    const confirmDelete = window.confirm(
-      "Yakin ingin menghapus kategori ini?"
-    );
+    const confirmDelete = window.confirm("Yakin ingin menghapus kategori ini?");
 
     if (!confirmDelete) return;
 
@@ -60,7 +73,14 @@ function ManageCategories() {
 
       fetchCategories();
 
-      alert("Kategori berhasil dihapus");
+      Swal.fire({
+        icon: "success",
+        title: "Kategori Berhasil Dihapus",
+        text: "Kategori telah berhasil dihapus dari database",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
     } catch (error) {
       console.error("Error hapus kategori:", error);
     }
@@ -111,9 +131,7 @@ function ManageCategories() {
           type="text"
           placeholder="Masukkan nama kategori..."
           value={newCategory}
-          onChange={(e) =>
-            setNewCategory(e.target.value)
-          }
+          onChange={(e) => setNewCategory(e.target.value)}
           style={{
             flex: 1,
             padding: "12px",
@@ -160,11 +178,7 @@ function ManageCategories() {
               <span>{category.name}</span>
 
               <button
-                onClick={() =>
-                  handleDeleteCategory(
-                    category.id
-                  )
-                }
+                onClick={() => handleDeleteCategory(category.id)}
                 style={{
                   background: "red",
                   color: "white",

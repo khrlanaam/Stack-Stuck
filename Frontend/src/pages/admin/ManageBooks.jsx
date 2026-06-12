@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaBook } from "react-icons/fa";
 
-import {
-  getBooks,
-  createBook,
-  deleteBook,
-} from "../../services/bookService";
+import { getBooks, createBook, deleteBook } from "../../services/bookService";
 
 import { getCategories } from "../../services/categoryService";
 
@@ -58,14 +55,16 @@ function ManageBooks() {
 
   const handleAddBook = async () => {
     try {
-      if (
-        !form.title ||
-        !form.author ||
-        !form.category_id
-      ) {
-        alert(
-          "Title, Author, dan Category wajib diisi"
-        );
+      if (!form.title || !form.author || !form.category_id) {
+        Swal.fire({
+          icon: "warning",
+          title: "Form Belum Lengkap",
+          text: "Title, Author, dan Category wajib diisi",
+          background: "#181818",
+          color: "#fff",
+          confirmButtonColor: "#e50914",
+        });
+
         return;
       }
 
@@ -73,14 +72,8 @@ function ManageBooks() {
 
       formData.append("title", form.title);
       formData.append("author", form.author);
-      formData.append(
-        "description",
-        form.description
-      );
-      formData.append(
-        "category_id",
-        form.category_id
-      );
+      formData.append("description", form.description);
+      formData.append("category_id", form.category_id);
       formData.append("stock", form.stock);
 
       if (cover) {
@@ -89,7 +82,14 @@ function ManageBooks() {
 
       await createBook(formData);
 
-      alert("Buku berhasil ditambahkan");
+      Swal.fire({
+        icon: "success",
+        title: "Book Added",
+        text: "Buku berhasil ditambahkan",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
 
       setForm({
         title: "",
@@ -105,33 +105,32 @@ function ManageBooks() {
     } catch (error) {
       console.error(error);
 
-      alert(
-        error.response?.data?.message ||
-          "Gagal menambahkan buku"
-      );
+      alert(error.response?.data?.message || "Gagal menambahkan buku");
     }
   };
 
   const handleDeleteBook = async (id) => {
-    const confirmDelete = window.confirm(
-      "Yakin ingin menghapus buku ini?"
-    );
+    const confirmDelete = window.confirm("Yakin ingin menghapus buku ini?");
 
     if (!confirmDelete) return;
 
     try {
       await deleteBook(id);
 
-      alert("Buku berhasil dihapus");
+      Swal.fire({
+        icon: "success",
+        title: "Book Deleted",
+        text: "Buku berhasil dihapus",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
 
       fetchBooks();
     } catch (error) {
       console.error(error);
 
-      alert(
-        error.response?.data?.message ||
-          "Gagal menghapus buku"
-      );
+      alert(error.response?.data?.message || "Gagal menghapus buku");
     }
   };
 
@@ -218,15 +217,10 @@ function ManageBooks() {
             onChange={handleChange}
             style={inputStyle}
           >
-            <option value="">
-              Select Category
-            </option>
+            <option value="">Select Category</option>
 
             {categories.map((category) => (
-              <option
-                key={category.id}
-                value={category.id}
-              >
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}
@@ -244,9 +238,7 @@ function ManageBooks() {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) =>
-              setCover(e.target.files[0])
-            }
+            onChange={(e) => setCover(e.target.files[0])}
             style={inputStyle}
           />
 
@@ -295,8 +287,7 @@ function ManageBooks() {
                 borderRadius: "10px",
                 marginBottom: "15px",
                 display: "flex",
-                justifyContent:
-                  "space-between",
+                justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
@@ -324,25 +315,16 @@ function ManageBooks() {
                 <div>
                   <h3>{book.title}</h3>
 
-                  <p>
-                    Author: {book.author}
-                  </p>
+                  <p>Author: {book.author}</p>
 
-                  <p>
-                    Stock: {book.stock}
-                  </p>
+                  <p>Stock: {book.stock}</p>
 
-                  <p>
-                    Category ID:{" "}
-                    {book.category_id}
-                  </p>
+                  <p>Category ID: {book.category_id}</p>
                 </div>
               </div>
 
               <button
-                onClick={() =>
-                  handleDeleteBook(book.id)
-                }
+                onClick={() => handleDeleteBook(book.id)}
                 style={{
                   background: "#e50914",
                   color: "#fff",
