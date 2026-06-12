@@ -10,7 +10,7 @@ export const getBooks = async () => {
     },
   });
 
-  return response.data;
+  return response.data.data;
 };
 
 // GET buku berdasarkan ID
@@ -22,6 +22,58 @@ export const getBookById = async (id) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  return response.data;
+};
+
+// CREATE buku
+export const createBook = async (formData) => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.post(
+    "/api/books",
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return response.data;
+};
+
+// UPDATE buku
+export const updateBook = async (id, formData) => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.put(
+    `/api/books/${id}`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return response.data;
+};
+
+// DELETE buku
+export const deleteBook = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.delete(
+    `/api/books/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return response.data;
 };
