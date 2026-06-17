@@ -72,23 +72,23 @@ function Register() {
   };
 
   return (
-    <div className={styles.container}>
-      {/* LEFT */}
+        <div className={styles.container}>
+      {/* KIRI */}
       <div className={styles.left}>
         <div className={styles.overlay}></div>
 
         <div className={styles.leftContent}>
-          <h1>Join ReadZone</h1>
+          <h1>Bergabung dengan ReadZone</h1>
 
           <p>
-            Create your account and unlock access to
-            thousands of books, articles, and learning
-            resources.
+            Buat akun Anda dan dapatkan akses ke
+            ribuan buku, artikel, serta berbagai
+            sumber pembelajaran.
           </p>
         </div>
       </div>
 
-      {/* RIGHT */}
+      {/* KANAN */}
       <div className={styles.right}>
         <div
           className={styles.logo}
@@ -98,9 +98,9 @@ function Register() {
         </div>
 
         <div className={styles.card}>
-          <h2>Create Account</h2>
+          <h2>Buat Akun</h2>
 
-          <p>Start your reading journey today</p>
+          <p>Mulai perjalanan membaca Anda hari ini</p>
 
           {error && (
             <div className={styles.error}>
@@ -109,11 +109,11 @@ function Register() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <label>Full Name</label>
+            <label>Nama Lengkap</label>
 
             <input
               type="text"
-              placeholder="Abidin"
+              placeholder="Masukkan nama lengkap"
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -121,11 +121,11 @@ function Register() {
               }}
             />
 
-            <label>Email Address</label>
+            <label>Alamat Email</label>
 
             <input
               type="email"
-              placeholder="name@example.com"
+              placeholder="nama@email.com"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -133,7 +133,7 @@ function Register() {
               }}
             />
 
-            <label>Password</label>
+            <label>Kata Sandi</label>
 
             <input
               type="password"
@@ -153,19 +153,19 @@ function Register() {
               }
             >
               {loading
-                ? "Creating Account..."
-                : "Create Account"}
+                ? "Membuat Akun..."
+                : "Daftar"}
             </button>
           </form>
 
           <p className={styles.login}>
-            Already have an account?{" "}
+            Sudah memiliki akun?{" "}
             <span
               onClick={() =>
                 navigate("/login")
               }
             >
-              Sign In
+              Masuk
             </span>
           </p>
         </div>

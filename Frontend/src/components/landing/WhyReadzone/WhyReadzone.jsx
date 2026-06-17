@@ -3,30 +3,33 @@ import styles from "./WhyReadzone.module.css";
 function WhyReadzone() {
   return (
     <section className={styles.section}>
-      <h2>Why ReadZone?</h2>
+      <h2>Mengapa Memilih ReadZone?</h2>
 
       <div className={styles.grid}>
         <div className={styles.card}>
-          <h3>Easy Discovery</h3>
+          <h3>Pencarian Buku yang Mudah</h3>
           <p>
-            Temukan buku favorit berdasarkan kategori dan
-            rekomendasi.
+            Temukan buku dengan cepat melalui fitur pencarian
+            dan kategori yang terorganisir sehingga pengguna
+            dapat menemukan referensi yang dibutuhkan dengan lebih efisien.
           </p>
         </div>
 
         <div className={styles.card}>
-          <h3>Modern Experience</h3>
+          <h3>Peminjaman yang Praktis</h3>
           <p>
-            Tampilan sederhana dan cepat seperti layanan
-            streaming modern.
+            Proses peminjaman buku dilakukan secara digital
+            sehingga lebih cepat, mudah, dan dapat diakses
+            kapan saja tanpa prosedur yang rumit.
           </p>
         </div>
 
         <div className={styles.card}>
-          <h3>Personal Library</h3>
+          <h3>Riwayat dan Pengelolaan Buku</h3>
           <p>
-            Kelola daftar bacaan dan riwayat peminjaman dalam
-            satu tempat.
+            Pantau riwayat peminjaman, kelola koleksi buku,
+            dan akses informasi perpustakaan dalam satu
+            platform yang terintegrasi.
           </p>
         </div>
       </div>

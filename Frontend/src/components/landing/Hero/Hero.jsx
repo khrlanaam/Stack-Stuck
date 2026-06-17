@@ -7,19 +7,19 @@ function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.overlay}>
-
         <h1>
-          Discover Unlimited
+          Sistem Perpustakaan Digital
           <br />
-          Books, Stories &
+          untuk Membaca, Meminjam,
           <br />
-          Knowledge
+          dan Mengelola Buku
         </h1>
 
         <p>
-          Explore thousands of books across multiple genres.
-          Read anytime, anywhere, and build your personal
-          library with a modern reading experience.
+          Jelajahi koleksi buku digital dari berbagai kategori.
+          Temukan buku favoritmu, pinjam dengan mudah,
+          dan nikmati pengalaman membaca yang modern
+          kapan saja dan di mana saja.
         </p>
 
         <div className={styles.buttons}>
@@ -27,14 +27,14 @@ function Hero() {
             className={styles.primaryBtn}
             onClick={() => navigate("/register")}
           >
-            Start Reading
+            Mulai Sekarang
           </button>
 
           <button
             className={styles.secondaryBtn}
             onClick={() => navigate("/login")}
           >
-            Sign In
+            Masuk
           </button>
         </div>
       </div>

@@ -49,21 +49,14 @@ function Login() {
         password,
       });
 
-      console.log("LOGIN RESULT:", result);
-      console.log("USER:", result.user);
-      console.log("ROLE:", result.user?.role);
-
       login(
         result.user,
         result.token
       );
-      console.log("ROLE TYPE:", typeof result.user?.role);
-      console.log("ROLE VALUE:", result.user?.role);
+
       if (result.user?.role === "admin") {
-        console.log("REDIRECT ADMIN");
         navigate("/admin");
       } else {
-        console.log("REDIRECT USER");
         navigate("/home");
       }
 
@@ -85,11 +78,11 @@ function Login() {
         <div className={styles.overlay}></div>
 
         <div className={styles.leftContent}>
-          <h1>Read Without Limits</h1>
+          <h1>Membaca Tanpa Batas</h1>
 
           <p>
-            Discover millions of books, articles, and
-            knowledge at your fingertips.
+            Temukan buku, artikel, dan berbagai
+            pengetahuan hanya dalam genggaman Anda.
           </p>
         </div>
       </div>
@@ -103,9 +96,9 @@ function Login() {
         </div>
 
         <div className={styles.card}>
-          <h2>Welcome Back</h2>
+          <h2>Selamat Datang Kembali</h2>
 
-          <p>Log in to continue reading</p>
+          <p>Masuk untuk melanjutkan membaca</p>
 
           {error && (
             <div className={styles.error}>
@@ -114,11 +107,11 @@ function Login() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <label>Email Address</label>
+            <label>Alamat Email</label>
 
             <input
               type="email"
-              placeholder="name@example.com"
+              placeholder="nama@email.com"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -126,7 +119,7 @@ function Login() {
               }}
             />
 
-            <label>Password</label>
+            <label>Kata Sandi</label>
 
             <input
               type="password"
@@ -138,17 +131,6 @@ function Login() {
               }}
             />
 
-            <div className={styles.row}>
-              <label>
-                <input type="checkbox" />
-                Remember me
-              </label>
-
-              <span className={styles.forgot}>
-                Forgot?
-              </span>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -159,19 +141,19 @@ function Login() {
               }
             >
               {loading
-                ? "Signing In..."
-                : "Sign In"}
+                ? "Sedang Masuk..."
+                : "Masuk"}
             </button>
           </form>
 
           <p className={styles.register}>
-            New to ReadZone?{" "}
+            Belum punya akun?{" "}
             <span
               onClick={() =>
                 navigate("/register")
               }
             >
-              Register now
+              Daftar sekarang
             </span>
           </p>
         </div>

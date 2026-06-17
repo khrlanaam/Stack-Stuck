@@ -2,51 +2,59 @@ import styles from "./About.module.css";
 
 function About() {
   return (
-    <section className={styles.about}>
+    <section className={styles.about} id="about">
       <div className={styles.container}>
 
-        <div className={styles.imageWrapper}>
-          <img
-            src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1200"
-            alt="Library"
-          />
-        </div>
+        <span className={styles.label}>
+          TENTANG READZONE
+        </span>
 
-        <div className={styles.content}>
-          <span className={styles.badge}>
-            ABOUT US
-          </span>
+        <h2>
+          Platform Perpustakaan Digital
+        </h2>
 
-          <h2>About ReadZone</h2>
+        <p className={styles.description}>
+          ReadZone adalah platform perpustakaan digital yang dirancang untuk
+          membantu pengguna menemukan, menjelajahi, dan mengelola koleksi buku
+          secara lebih mudah dalam satu sistem yang terintegrasi.
+        
+          Dengan antarmuka yang modern dan pengalaman pengguna yang sederhana,
+          ReadZone memungkinkan pembaca mengakses berbagai kategori buku,
+          menemukan rekomendasi bacaan yang relevan, serta membangun kebiasaan
+          membaca yang lebih terorganisir dan efisien.
+        </p>
 
-          <p>
-            ReadZone adalah platform digital untuk menemukan,
-            membaca, dan mengelola koleksi buku favorit dalam
-            satu tempat yang sederhana dan modern.
-          </p>
+        <div className={styles.cards}>
 
-          <p>
-            Kami membantu pembaca menemukan buku lebih cepat,
-            mengakses kategori yang relevan, dan menikmati
-            pengalaman membaca yang nyaman.
-          </p>
-
-          <div className={styles.stats}>
-            <div>
-              <h3>10K+</h3>
-              <span>Books</span>
+          <div className={styles.card}>
+            <div className={styles.icon}>
+              🎯
             </div>
 
-            <div>
-              <h3>50+</h3>
-              <span>Categories</span>
-            </div>
+            <h3>Misi</h3>
 
-            <div>
-              <h3>5K+</h3>
-              <span>Readers</span>
-            </div>
+            <p>
+            Membantu pengguna menemukan buku yang sesuai dengan minat mereka,
+            mengelola aktivitas membaca secara efektif, serta menciptakan
+            pengalaman membaca digital yang praktis dan menyenangkan.
+            </p>
+            
           </div>
+
+          <div className={styles.card}>
+            <div className={styles.icon}>
+              👁️
+            </div>
+
+            <h3>Visi</h3>
+
+            <p>
+              Menjadi salah satu platform digital pilihan bagi masyarakat
+              dalam mengakses, mengelola, dan menikmati berbagai koleksi
+              buku serta sumber pembelajaran secara online.
+            </p>
+          </div>
+
         </div>
 
       </div>

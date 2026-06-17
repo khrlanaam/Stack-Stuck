@@ -1,31 +1,73 @@
-/* Small Screen */
+.footer {
+  margin-top: 80px;
+
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  background: #09090d;
+}
+
 .container {
-  background-color: #4361ee;
-  color: #fff;
-  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  padding: 70px 80px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 60px;
+}
+
+.brand h2 {
+  color: #e50914;
+  font-size: 36px;
+
+  margin-bottom: 16px;
+}
+
+.brand p {
+  color: rgba(255,255,255,.7);
+
+  line-height: 1.8;
+
+  max-width: 450px;
+}
+
+.links,
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.links h4,
+.contact h4 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.links a {
+  text-decoration: none;
+  color: rgba(255,255,255,.7);
+
+  margin-bottom: 12px;
+
+  transition: .2s;
+}
+
+.links a:hover {
+  color: #e50914;
+}
+
+.contact p {
+  color: rgba(255,255,255,.7);
+  margin-bottom: 12px;
+}
+
+.bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+
   text-align: center;
-}
 
-.footer__title {
-  margin-bottom: 1rem;
-}
+  padding: 24px;
 
-.footer__author {
-  margin-bottom: 1rem;
-}
-
-/* Medium Screen */
-@media (min-width: 768px) {
-  /*
-   * Nothing TODO here.
-   * We dont change styling footer. 
-   */
-}
-
-/* Large Screen */
-@media (min-width: 992px) {
-  /*
-   * Nothing TODO here.
-   * We dont change styling footer. 
-   */
+  color: rgba(255,255,255,.5);
 }

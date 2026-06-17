@@ -13,11 +13,6 @@ function LandingNavbar() {
         ReadZone
       </div>
 
-      <div className={styles.menu}>
-        <span>About</span>
-        <span>Why ReadZone</span>
-      </div>
-
       <div className={styles.auth}>
         <button
           className={styles.loginBtn}
