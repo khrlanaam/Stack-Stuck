@@ -25,10 +25,10 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "32px" }}>Featured Book</h1>
+          <h1 style={{ fontSize: "32px" }}>Buku Unggulan</h1>
 
           <p style={{ opacity: 0.7 }}>
-            Start your reading journey from here
+            Mulailah perjalanan membaca Anda dari sini.
           </p>
 
           <button
@@ -43,13 +43,13 @@ function Home() {
               border: "none",
             }}
           >
-            Read Now
+            Baca Sekarang
           </button>
         </section>
 
         {/* CONTINUE READING */}
         <section style={{ marginTop: "40px" }}>
-          <h2>Continue Reading</h2>
+          <h2>Lanjutkan Membaca</h2>
 
           <div
             style={{
@@ -75,7 +75,7 @@ function Home() {
 
         {/* RECOMMENDED */}
         <section style={{ marginTop: "40px" }}>
-          <h2>Recommended for You</h2>
+          <h2>Merekomendasikan Untuk Kamu</h2>
 
           <div
             style={{
@@ -101,7 +101,7 @@ function Home() {
 
         {/* LIBRARY PREVIEW */}
         <section style={{ marginTop: "40px" }}>
-          <h2>Library Preview</h2>
+          <h2>pratinjau perpustakaan</h2>
 
           <div
             style={{
