@@ -20,7 +20,7 @@ function Categories() {
       <AppNavbar />
 
       <div style={{ padding: "100px 40px" }}>
-        <h1>Browse by Category</h1>
+        <h1>Cari Berdasarkan Kategori</h1>
 
         <BookCategory
           selectedCategory={selectedCategory}

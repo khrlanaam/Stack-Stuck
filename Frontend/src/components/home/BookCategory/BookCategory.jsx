@@ -57,7 +57,7 @@ function BookCategory({ selectedCategory, onSelectCategory }) {
         style={buttonStyle(selectedCategory === null)}
         onClick={() => onSelectCategory(null)}
       >
-        All Books
+        Semua Buku
       </button>
 
       {/* Looping tombol kategori */}

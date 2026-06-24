@@ -33,19 +33,19 @@ function AppNavbar() {
 
       <div className={styles.menu}>
         <span onClick={() => navigate("/home")}>
-          Home
+          Beranda
         </span>
 
         <span onClick={() => navigate("/categories")}>
-          Categories
+          Kategori
         </span>
 
         <span onClick={() => navigate("/books")}>
-          Books
+          Buku
         </span>
 
         <span onClick={() => navigate("/borrowings")}>
-          My Borrowings
+          Peminjaman Saya
         </span>
       </div>
 
@@ -63,7 +63,7 @@ function AppNavbar() {
 
       <div className={styles.auth}>
         <span className={styles.username}>
-          Hi, {user?.name || "User"}
+          Halo, {user?.name || "User"}
         </span>
 
         <button
