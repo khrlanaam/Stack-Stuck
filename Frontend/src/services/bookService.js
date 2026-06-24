@@ -13,6 +13,19 @@ export const getBooks = async () => {
   return response.data.data;
 };
 
+// SEARCH buku berdasarkan keyword
+export const searchBooks = async (keyword) => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.get(`/api/books/search?search=${encodeURIComponent(keyword)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data.data;
+};
+
 // GET buku berdasarkan ID
 export const getBookById = async (id) => {
   const token = localStorage.getItem("token");

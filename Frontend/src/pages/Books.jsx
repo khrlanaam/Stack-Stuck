@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 
-import { getBooks } from "../services/bookService";
+import { getBooks, searchBooks } from "../services/bookService";
 import { borrowBook } from "../services/borrowingService";
 
 function Books() {
   const [books, setBooks] = useState([]);
+  const [searchParams] = useSearchParams();
+  const searchKeyword = searchParams.get("search") || "";
 
   const fetchBooks = async () => {
     try {
-      const result = await getBooks();
+      const result = searchKeyword
+        ? await searchBooks(searchKeyword)
+        : await getBooks();
 
-      console.log("Books:", result);
-
-      setBooks(result.data);
+      setBooks(Array.isArray(result) ? result : []);
     } catch (err) {
       console.error("Error Fetch Books:", err);
     }
@@ -74,7 +77,7 @@ function Books() {
 
   useEffect(() => {
     fetchBooks();
-  }, []);
+  }, [searchKeyword]);
 
   return (
     <div
@@ -91,7 +94,7 @@ function Books() {
           padding: "100px 40px",
         }}
       >
-        <h1>Books</h1>
+        <h1>{searchKeyword ? `Hasil Pencarian: "${searchKeyword}"` : "Books"}</h1>
 
         <div
           style={{
