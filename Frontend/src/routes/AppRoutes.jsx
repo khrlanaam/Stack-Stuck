@@ -18,6 +18,7 @@ import ManageBorrowings from "../pages/admin/ManageBorrowings";
 import ManageCategories from "../pages/admin/ManageCategories";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
+import AdminRoute from "./AdminRoute";
 import BookDetail from "../pages/BookDetail";
 
 function AppRoutes() {
@@ -94,52 +95,52 @@ function AppRoutes() {
       <Route
         path="/admin"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <Admin />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
 
       <Route
         path="/admin/books"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <ManageBooks />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
 
       <Route
         path="/admin/users"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <ManageUsers />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
 
       <Route
         path="/admin/borrowings"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <ManageBorrowings />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
       <Route
         path="/admin/categories"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <ManageCategories />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
       <Route
         path="/admin/pending"
         element={
-          <ProtectedRoute>
+          <AdminRoute>
             <AdminBorrowings />
-          </ProtectedRoute>
+          </AdminRoute>
         }
       />
     </Routes>

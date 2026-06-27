@@ -1,7 +1,32 @@
+import { useEffect, useState } from "react";
+
 import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
+import BookCard from "../components/home/BookCard/BookCard";
+
+import { getBooks } from "../services/bookService";
 
 function Home() {
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const data = await getBooks();
+        setBooks(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Gagal mengambil buku:", err);
+        setError("Gagal memuat buku. Silakan coba lagi.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
   return (
     <div
       style={{
@@ -47,82 +72,72 @@ function Home() {
           </button>
         </section>
 
-        {/* CONTINUE READING */}
-        <section style={{ marginTop: "40px" }}>
-          <h2>Lanjutkan Membaca</h2>
+        {/* LOADING */}
+        {loading && (
+          <p style={{ textAlign: "center", marginTop: "40px", opacity: 0.5 }}>
+            Memuat buku...
+          </p>
+        )}
 
-          <div
+        {/* ERROR */}
+        {error && (
+          <p
             style={{
-              display: "flex",
-              gap: "12px",
-              overflowX: "auto",
-              paddingTop: "10px",
+              textAlign: "center",
+              marginTop: "40px",
+              color: "#e50914",
             }}
           >
-            {[1, 2, 3, 4, 5].map((item) => (
+            {error}
+          </p>
+        )}
+
+        {/* ALL BOOKS */}
+        {!loading && !error && books.length > 0 && (
+          <>
+            {/* RECOMMENDED */}
+            <section style={{ marginTop: "40px" }}>
+              <h2>Merekomendasikan Untuk Kamu</h2>
+
               <div
-                key={item}
                 style={{
-                  minWidth: "120px",
-                  height: "180px",
-                  background: "#222",
-                  borderRadius: "10px",
+                  display: "flex",
+                  gap: "12px",
+                  overflowX: "auto",
+                  paddingTop: "10px",
                 }}
-              />
-            ))}
-          </div>
-        </section>
+              >
+                {books.slice(0, 6).map((book) => (
+                  <BookCard key={book.id} book={book} />
+                ))}
+              </div>
+            </section>
 
-        {/* RECOMMENDED */}
-        <section style={{ marginTop: "40px" }}>
-          <h2>Merekomendasikan Untuk Kamu</h2>
+            {/* LIBRARY PREVIEW */}
+            <section style={{ marginTop: "40px" }}>
+              <h2>Pratinjau Perpustakaan</h2>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              overflowX: "auto",
-              paddingTop: "10px",
-            }}
-          >
-            {[1, 2, 3, 4, 5, 6].map((item) => (
               <div
-                key={item}
                 style={{
-                  minWidth: "120px",
-                  height: "180px",
-                  background: "#333",
-                  borderRadius: "10px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+                  gap: "20px",
+                  marginTop: "10px",
                 }}
-              />
-            ))}
-          </div>
-        </section>
+              >
+                {books.map((book) => (
+                  <BookCard key={book.id} book={book} />
+                ))}
+              </div>
+            </section>
+          </>
+        )}
 
-        {/* LIBRARY PREVIEW */}
-        <section style={{ marginTop: "40px" }}>
-          <h2>pratinjau perpustakaan</h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-              gap: "12px",
-              marginTop: "10px",
-            }}
-          >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-              <div
-                key={item}
-                style={{
-                  height: "180px",
-                  background: "#444",
-                  borderRadius: "10px",
-                }}
-              />
-            ))}
-          </div>
-        </section>
+        {!loading && !error && books.length === 0 && (
+          <p style={{ textAlign: "center", marginTop: "40px", opacity: 0.5 }}>
+            Belum ada buku tersedia.
+          </p>
+        )}
       </div>
 
       <Footer />

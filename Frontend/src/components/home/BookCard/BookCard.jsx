@@ -46,13 +46,27 @@ function BookCard({ book }) {
         {book.author}
       </p>
 
-      <div
+      {book.category_name && (
+        <p
+          style={{
+            margin: "5px 0 0",
+            fontSize: "12px",
+            opacity: 0.6,
+          }}
+        >
+          {book.category_name}
+        </p>
+      )}
+
+      <p
         style={{
-          display: "flex",
-          gap: "8px",
-          marginTop: "12px",
+          margin: "5px 0 0",
+          fontSize: "13px",
+          color: book.stock > 0 ? "#00c853" : "#e50914",
         }}
-      ></div>
+      >
+        {book.stock > 0 ? `${book.stock} tersedia` : "Stok Habis"}
+      </p>
     </div>
   );
 }

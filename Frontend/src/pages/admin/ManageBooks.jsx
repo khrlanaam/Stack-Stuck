@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaBook } from "react-icons/fa";
 
-import { getBooks, createBook, deleteBook } from "../../services/bookService";
+import { getBooks, createBook, updateBook, deleteBook } from "../../services/bookService";
 
 import { getCategories } from "../../services/categoryService";
 
@@ -22,6 +22,7 @@ function ManageBooks() {
   });
 
   const [cover, setCover] = useState(null);
+  const [editingBook, setEditingBook] = useState(null);
 
   const fetchBooks = async () => {
     try {
@@ -53,7 +54,35 @@ function ManageBooks() {
     });
   };
 
-  const handleAddBook = async () => {
+  const resetForm = () => {
+    setForm({
+      title: "",
+      author: "",
+      description: "",
+      category_id: "",
+      stock: 0,
+    });
+    setCover(null);
+    setEditingBook(null);
+  };
+
+  const handleEditClick = (book) => {
+    setForm({
+      title: book.title,
+      author: book.author,
+      description: book.description || "",
+      category_id: book.category_id,
+      stock: book.stock,
+    });
+    setCover(null);
+    setEditingBook(book);
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
+  };
+
+  const handleSubmit = async () => {
     try {
       if (!form.title || !form.author || !form.category_id) {
         Swal.fire({
@@ -80,32 +109,36 @@ function ManageBooks() {
         formData.append("cover", cover);
       }
 
-      await createBook(formData);
+      if (editingBook) {
+        await updateBook(editingBook.id, formData);
 
-      Swal.fire({
-        icon: "success",
-        title: "Book Added",
-        text: "Buku berhasil ditambahkan",
-        background: "#181818",
-        color: "#fff",
-        confirmButtonColor: "#e50914",
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Book Updated",
+          text: "Buku berhasil diperbarui",
+          background: "#181818",
+          color: "#fff",
+          confirmButtonColor: "#e50914",
+        });
+      } else {
+        await createBook(formData);
 
-      setForm({
-        title: "",
-        author: "",
-        description: "",
-        category_id: "",
-        stock: 0,
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Book Added",
+          text: "Buku berhasil ditambahkan",
+          background: "#181818",
+          color: "#fff",
+          confirmButtonColor: "#e50914",
+        });
+      }
 
-      setCover(null);
-
+      resetForm();
       fetchBooks();
     } catch (error) {
       console.error(error);
 
-      alert(error.response?.data?.message || "Gagal menambahkan buku");
+      alert(error.response?.data?.message || "Gagal menyimpan buku");
     }
   };
 
@@ -173,7 +206,7 @@ function ManageBooks() {
             marginBottom: "20px",
           }}
         >
-          <FaBook /> Add New Book
+          <FaBook /> {editingBook ? "Edit Book" : "Add New Book"}
         </h2>
 
         <div
@@ -242,20 +275,40 @@ function ManageBooks() {
             style={inputStyle}
           />
 
-          <button
-            onClick={handleAddBook}
-            style={{
-              background: "#00c853",
-              color: "#fff",
-              border: "none",
-              padding: "12px",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            Add Book
-          </button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              onClick={handleSubmit}
+              style={{
+                flex: 1,
+                background: editingBook ? "#2196f3" : "#00c853",
+                color: "#fff",
+                border: "none",
+                padding: "12px",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              {editingBook ? "Update Book" : "Add Book"}
+            </button>
+
+            {editingBook && (
+              <button
+                onClick={handleCancelEdit}
+                style={{
+                  background: "#555",
+                  color: "#fff",
+                  border: "none",
+                  padding: "12px 20px",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -323,19 +376,35 @@ function ManageBooks() {
                 </div>
               </div>
 
-              <button
-                onClick={() => handleDeleteBook(book.id)}
-                style={{
-                  background: "#e50914",
-                  color: "#fff",
-                  border: "none",
-                  padding: "10px 15px",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                Delete
-              </button>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  onClick={() => handleEditClick(book)}
+                  style={{
+                    background: "#2196f3",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 15px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => handleDeleteBook(book.id)}
+                  style={{
+                    background: "#e50914",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 15px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}
