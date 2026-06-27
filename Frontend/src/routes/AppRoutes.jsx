@@ -18,6 +18,7 @@ import ManageBorrowings from "../pages/admin/ManageBorrowings";
 import ManageCategories from "../pages/admin/ManageCategories";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
+import BookDetail from "../pages/BookDetail";
 
 function AppRoutes() {
   return (
@@ -81,7 +82,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/books/:id"
+        element={
+          <ProtectedRoute>
+            <BookDetail />
+          </ProtectedRoute>
+        }
+      />
       {/* ADMIN */}
       <Route
         path="/admin"

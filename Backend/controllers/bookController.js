@@ -10,14 +10,40 @@ exports.getAllBooks = async (req, res) => {
 
     const result = books.map((b) => ({
       ...b,
-      cover_url: b.cover
-        ? `http://localhost:3000/uploads/${b.cover}`
-        : null,
+      cover_url: b.cover ? `http://localhost:3000/uploads/${b.cover}` : null,
     }));
 
     res.status(200).json({
       message: "Data buku berhasil diambil",
       data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+exports.getBookById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const book = await Book.getById(id);
+
+    if (!book) {
+      return res.status(404).json({
+        message: "Book tidak ditemukan",
+      });
+    }
+
+    res.status(200).json({
+      message: "Detail buku berhasil diambil",
+      data: {
+        ...book,
+        cover_url: book.cover
+          ? `http://localhost:3000/uploads/${book.cover}`
+          : null,
+      },
     });
   } catch (err) {
     res.status(500).json({
@@ -162,12 +188,11 @@ exports.searchBooks = async (req, res) => {
 
     res.status(200).json({
       message: "Hasil Pencarian Buku",
-      data: books
+      data: books,
     });
-
   } catch (err) {
     res.status(500).json({
-      message: err.message
+      message: err.message,
     });
   }
 };

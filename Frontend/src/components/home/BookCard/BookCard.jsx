@@ -1,11 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 function BookCard({ book }) {
+  const navigate = useNavigate();
+
   return (
     <div
+      onClick={() => navigate(`/books/${book.id}`)}
       style={{
         width: "180px",
         background: "#111",
         borderRadius: "10px",
         padding: "10px",
+        cursor: "pointer",
+        transition: "0.3s",
       }}
     >
       <img

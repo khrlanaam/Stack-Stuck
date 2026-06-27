@@ -6,34 +6,39 @@ const auth = require("../middleware/auth");
 const authorize = require("../middleware/authorize");
 const upload = require("../middleware/upload");
 
+// GET
 
-
+// Ambil semua buku
 router.get("/", auth, bookController.getAllBooks);
-router.get("/search", bookController.searchBooks);
 
+// Cari buku
+router.get("/search", auth, bookController.searchBooks);
 
+// Detail buku
+router.get("/:id", auth, bookController.getBookById);
+
+// POST
 
 router.post(
   "/",
   auth,
   authorize("admin"),
   upload.single("cover"),
-  bookController.createBook
+  bookController.createBook,
 );
+
+// PUT
 
 router.put(
   "/:id",
   auth,
   authorize("admin"),
   upload.single("cover"),
-  bookController.updateBook
+  bookController.updateBook,
 );
 
-router.delete(
-  "/:id",
-  auth,
-  authorize("admin"),
-  bookController.deleteBook
-);
+// DELETE
+
+router.delete("/:id", auth, authorize("admin"), bookController.deleteBook);
 
 module.exports = router;

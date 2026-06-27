@@ -17,11 +17,14 @@ export const getBooks = async () => {
 export const searchBooks = async (keyword) => {
   const token = localStorage.getItem("token");
 
-  const response = await api.get(`/api/books/search?search=${encodeURIComponent(keyword)}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await api.get(
+    `/api/books/search?search=${encodeURIComponent(keyword)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   return response.data.data;
 };
@@ -36,23 +39,19 @@ export const getBookById = async (id) => {
     },
   });
 
-  return response.data;
+  return response.data.data;
 };
 
 // CREATE buku
 export const createBook = async (formData) => {
   const token = localStorage.getItem("token");
 
-  const response = await api.post(
-    "/api/books",
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const response = await api.post("/api/books", formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return response.data;
 };
@@ -61,16 +60,12 @@ export const createBook = async (formData) => {
 export const updateBook = async (id, formData) => {
   const token = localStorage.getItem("token");
 
-  const response = await api.put(
-    `/api/books/${id}`,
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const response = await api.put(`/api/books/${id}`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return response.data;
 };
@@ -79,14 +74,11 @@ export const updateBook = async (id, formData) => {
 export const deleteBook = async (id) => {
   const token = localStorage.getItem("token");
 
-  const response = await api.delete(
-    `/api/books/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await api.delete(`/api/books/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };

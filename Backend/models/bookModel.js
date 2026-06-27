@@ -31,22 +31,20 @@ const Book = {
 };
 
 const getBooksByCategory = async (categoryId) => {
-  const [rows] = await db.query(
-    "SELECT * FROM books WHERE category_id = ?",
-    [categoryId]
-  );
+  const [rows] = await db.query("SELECT * FROM books WHERE category_id = ?", [
+    categoryId,
+  ]);
   return rows;
 };
-
 
 const search = async (keyword) => {
   const sql = `
     SELECT * FROM books 
     WHERE title LIKE ? OR author LIKE ?
   `;
-    
+
   const [rows] = await db.query(sql, [`%${keyword}%`, `%${keyword}%`]);
-  
+
   return rows;
 };
 
@@ -55,4 +53,3 @@ module.exports = {
   getBooksByCategory,
   search,
 };
-
