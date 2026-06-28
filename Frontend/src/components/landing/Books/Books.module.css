@@ -3,20 +3,131 @@
   margin-top: 50px;
 }
 
+
 .rowWrapper h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: white;
+  font-size: 28px;
 }
+
+
+/* GRID BUKU */
 
 .row {
-  display: flex;
-  gap: 16px;
 
-  overflow-x: auto;
+  display: grid;
 
-  scrollbar-width: none;
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 20px;
+
 }
 
-.row::-webkit-scrollbar {
-  display: none;
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+
+  .row {
+
+    grid-template-columns: repeat(4, 1fr);
+
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .row {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+
+
+/* CARD */
+
+.card {
+
+  position: relative;
+
+  height: 320px;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  background: #111;
+
+  transition: 0.3s ease;
+
+}
+
+
+
+.card:hover {
+
+  transform: translateY(-6px);
+
+}
+
+
+
+/* COVER */
+
+.card img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+
+
+/* TEXT OVERLAY */
+
+.overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+
+  display: flex;
+
+  align-items: flex-end;
+
+
+  padding: 16px;
+
+
+  background: linear-gradient(
+    transparent,
+    rgba(0,0,0,0.9)
+  );
+
+}
+
+
+
+.overlay h4 {
+
+  color:white;
+
+  margin:0;
+
+  font-size:16px;
+
+  font-weight:600;
+
 }

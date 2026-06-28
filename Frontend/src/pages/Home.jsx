@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-
 import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
 import Footer from "../components/layout/Footer/Footer";
 import BookCard from "../components/home/BookCard/BookCard";
-
 import { getBooks } from "../services/bookService";
+import heroImage from "../assets/hero.png";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -15,66 +14,107 @@ function Home() {
     const fetchBooks = async () => {
       try {
         const data = await getBooks();
-        setBooks(Array.isArray(data) ? data : []);
+        setBooks(
+          Array.isArray(data) ? data : []
+        );
+
       } catch (err) {
-        console.error("Gagal mengambil buku:", err);
-        setError("Gagal memuat buku. Silakan coba lagi.");
+        console.error(
+          "Gagal mengambil buku:",
+          err
+        );
+        setError(
+          "Gagal memuat buku. Silakan coba lagi."
+        );
       } finally {
         setLoading(false);
       }
     };
-
     fetchBooks();
   }, []);
 
   return (
     <div
       style={{
-        background: "#000",
-        color: "white",
-        minHeight: "100vh",
+        background:"#000",
+        color:"white",
+        minHeight:"100vh",
       }}
     >
       <AppNavbar />
 
-      <div style={{ padding: "90px 40px" }}>
+      <div
+        style={{
+          padding:"90px 40px",
+        }}
+      >
+
         {/* HERO FEATURED */}
         <section
           style={{
             height: "300px",
-            background: "linear-gradient(to right, #1a1a1a, #000)",
             borderRadius: "16px",
-            padding: "30px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            overflow: "hidden",
+            position: "relative",
+
+            backgroundImage: `
+              linear-gradient(
+                to right,
+                rgba(0,0,0,0.85),
+                rgba(0,0,0,0.35)
+              ),
+              url(${heroImage})
+            `,
+
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
+            display:"flex",
+            alignItems:"center",
+
+            padding:"40px",
           }}
         >
-          <h1 style={{ fontSize: "32px" }}>Buku Unggulan</h1>
+        <div>
+        <h1
+        style={{
+        fontSize:"42px",
+        marginBottom:"10px"
+        }}
+        >
+        Buku Unggulan
+        </h1>
 
-          <p style={{ opacity: 0.7 }}>
-            Mulailah perjalanan membaca Anda dari sini.
-          </p>
+        <p
+        style={{
+        opacity:0.8,
+        fontSize:"18px"
+        }}
+        >
+        Mulailah perjalanan membaca Anda dari sini.
+        </p>
+        </div>
 
-          <button
+          {/* IMAGE */}
+          <img
+            src={heroImage}
+            alt="Buku unggulan"
             style={{
-              marginTop: "20px",
-              padding: "10px 16px",
-              width: "fit-content",
-              background: "#fff",
-              color: "#000",
-              borderRadius: "8px",
-              cursor: "pointer",
-              border: "none",
+              height:"280px",
+              objectFit:"contain",
             }}
-          >
-            Baca Sekarang
-          </button>
+          />
         </section>
 
         {/* LOADING */}
         {loading && (
-          <p style={{ textAlign: "center", marginTop: "40px", opacity: 0.5 }}>
+          <p
+            style={{
+              textAlign:"center",
+              marginTop:"40px",
+              opacity:0.5,
+            }}
+          >
             Memuat buku...
           </p>
         )}
@@ -83,66 +123,95 @@ function Home() {
         {error && (
           <p
             style={{
-              textAlign: "center",
-              marginTop: "40px",
-              color: "#e50914",
+              textAlign:"center",
+              marginTop:"40px",
+              color:"#e50914",
             }}
           >
             {error}
           </p>
         )}
 
-        {/* ALL BOOKS */}
+        {/* BOOK LIST */}
         {!loading && !error && books.length > 0 && (
           <>
+
             {/* RECOMMENDED */}
-            <section style={{ marginTop: "40px" }}>
-              <h2>Merekomendasikan Untuk Kamu</h2>
+            <section
+              style={{
+                marginTop:"40px",
+              }}
+            >
+              <h2>
+                Merekomendasikan Untuk Kamu
+              </h2>
 
               <div
                 style={{
-                  display: "flex",
-                  gap: "12px",
-                  overflowX: "auto",
-                  paddingTop: "10px",
+                  display:"flex",
+                  gap:"12px",
+                  overflowX:"auto",
+                  paddingTop:"10px",
                 }}
               >
-                {books.slice(0, 6).map((book) => (
-                  <BookCard key={book.id} book={book} />
+                {books
+                  .slice(0,6)
+                  .map((book)=>(
+                    <BookCard
+                      key={book.id}
+                      book={book}
+                    />
                 ))}
               </div>
+
             </section>
 
             {/* LIBRARY PREVIEW */}
-            <section style={{ marginTop: "40px" }}>
-              <h2>Pratinjau Perpustakaan</h2>
-
+            <section
+              style={{
+                marginTop:"40px",
+              }}
+            >
+              <h2>
+                Pratinjau Perpustakaan
+              </h2>
               <div
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-                  gap: "20px",
-                  marginTop: "10px",
+                  display:"grid",
+                  gridTemplateColumns:
+                  "repeat(auto-fill,minmax(180px,1fr))",
+                  gap:"20px",
+                  marginTop:"10px",
                 }}
               >
-                {books.map((book) => (
-                  <BookCard key={book.id} book={book} />
+                {books.map((book)=>(
+                  <BookCard
+                    key={book.id}
+                    book={book}
+                  />
                 ))}
+
               </div>
             </section>
           </>
         )}
 
-        {!loading && !error && books.length === 0 && (
-          <p style={{ textAlign: "center", marginTop: "40px", opacity: 0.5 }}>
+        {!loading &&
+        !error &&
+        books.length === 0 && (
+          <p
+            style={{
+              textAlign:"center",
+              marginTop:"40px",
+              opacity:0.5,
+            }}
+          >
             Belum ada buku tersedia.
           </p>
         )}
       </div>
-
       <Footer />
     </div>
   );
 }
-
 export default Home;
