@@ -186,9 +186,16 @@ exports.searchBooks = async (req, res) => {
 
     const books = await Book.search(search);
 
+    const result = books.map((book) => ({
+      ...book,
+      cover_url: book.cover
+        ? `http://localhost:3000/uploads/${book.cover}`
+        : null,
+    }));
+
     res.status(200).json({
       message: "Hasil Pencarian Buku",
-      data: books,
+      data: result,
     });
   } catch (err) {
     res.status(500).json({
