@@ -5,9 +5,9 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
-import Books from "../pages/Books";
 import Borrowings from "../pages/Borrowings";
 import Categories from "../pages/Categories";
+import BookDetail from "../pages/BookDetail";
 
 import Admin from "../pages/Admin";
 import AdminBorrowings from "../pages/AdminBorrowings";
@@ -16,10 +16,10 @@ import ManageBooks from "../pages/admin/ManageBooks";
 import ManageUsers from "../pages/admin/ManageUsers";
 import ManageBorrowings from "../pages/admin/ManageBorrowings";
 import ManageCategories from "../pages/admin/ManageCategories";
+
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
 import AdminRoute from "./AdminRoute";
-import BookDetail from "../pages/BookDetail";
 
 function AppRoutes() {
   return (
@@ -27,7 +27,7 @@ function AppRoutes() {
       {/* Landing */}
       <Route path="/" element={<Landing />} />
 
-      {/* Auth */}
+      {/* Authentication */}
       <Route
         path="/login"
         element={
@@ -46,7 +46,7 @@ function AppRoutes() {
         }
       />
 
-      {/* Home */}
+      {/* User */}
       <Route
         path="/home"
         element={
@@ -56,12 +56,11 @@ function AppRoutes() {
         }
       />
 
-      {/* User Pages */}
       <Route
-        path="/books"
+        path="/categories"
         element={
           <ProtectedRoute>
-            <Books />
+            <Categories />
           </ProtectedRoute>
         }
       />
@@ -75,14 +74,7 @@ function AppRoutes() {
         }
       />
 
-      <Route
-        path="/categories"
-        element={
-          <ProtectedRoute>
-            <Categories />
-          </ProtectedRoute>
-        }
-      />
+      {/* Detail Buku */}
       <Route
         path="/books/:id"
         element={
@@ -91,7 +83,8 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      {/* ADMIN */}
+
+      {/* Admin */}
       <Route
         path="/admin"
         element={
@@ -127,6 +120,7 @@ function AppRoutes() {
           </AdminRoute>
         }
       />
+
       <Route
         path="/admin/categories"
         element={
@@ -135,6 +129,7 @@ function AppRoutes() {
           </AdminRoute>
         }
       />
+
       <Route
         path="/admin/pending"
         element={

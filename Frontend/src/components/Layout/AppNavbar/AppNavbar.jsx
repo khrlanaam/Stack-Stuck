@@ -5,25 +5,29 @@ import styles from "./AppNavbar.module.css";
 
 function AppNavbar() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState(""); // State untuk input pencarian
   const { user, logout } = useAuth();
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  // Fungsi saat user menekan tombol Enter atau klik icon cari
+  // Search buku -> diarahkan ke halaman Categories
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      // Mengarahkan ke halaman books sambil membawa query parameter ?search=...
-      navigate(`/books?search=${encodeURIComponent(searchQuery)}`);
-    }
+
+    if (!searchQuery.trim()) return;
+
+    navigate(
+      `/categories?search=${encodeURIComponent(searchQuery)}`
+    );
   };
 
   return (
     <nav className={styles.navbar}>
+      {/* Logo */}
       <div
         className={styles.logo}
         onClick={() => navigate("/home")}
@@ -31,6 +35,7 @@ function AppNavbar() {
         ReadZone
       </div>
 
+      {/* Menu */}
       <div className={styles.menu}>
         <span onClick={() => navigate("/home")}>
           Beranda
@@ -40,27 +45,28 @@ function AppNavbar() {
           Kategori
         </span>
 
-        <span onClick={() => navigate("/books")}>
-          Buku
-        </span>
-
         <span onClick={() => navigate("/borrowings")}>
           Peminjaman Saya
         </span>
       </div>
 
-      {/* ================= BARU: SEARCH BAR ================= */}
-      <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
+      {/* Search */}
+      <form
+        onSubmit={handleSearchSubmit}
+        className={styles.searchForm}
+      >
         <input
           type="text"
           placeholder="Cari judul buku atau penulis..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) =>
+            setSearchQuery(e.target.value)
+          }
           className={styles.searchInput}
         />
       </form>
-      {/* ==================================================== */}
 
+      {/* User */}
       <div className={styles.auth}>
         <span className={styles.username}>
           Halo, {user?.name || "User"}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./Borrowings.module.css";
 import Swal from "sweetalert2";
 
 import {
@@ -19,8 +20,7 @@ import {
 function Borrowings() {
   const [borrowings, setBorrowings] = useState([]);
   const [search, setSearch] = useState("");
-  const [filterStatus, setFilterStatus] =
-    useState("all");
+  const [filterStatus, setFilterStatus] = useState("all");
 
   const fetchData = async () => {
     try {
@@ -67,9 +67,7 @@ function Borrowings() {
     } catch (err) {
       Swal.fire({
         title: "Gagal",
-        text:
-          err.response?.data?.message ||
-          "Terjadi kesalahan",
+        text: err.response?.data?.message || "Terjadi kesalahan",
         icon: "error",
         background: "#181818",
         color: "#fff",
@@ -77,318 +75,159 @@ function Borrowings() {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusLabel = (status) => {
     switch (status) {
       case "borrowed":
-        return "#00c853";
-
+        return "Sedang Dipinjam";
       case "pending":
-        return "#ff9800";
-
+        return "Menunggu Persetujuan";
       case "returned":
-        return "#2196f3";
-
+        return "Dikembalikan";
       case "rejected":
-        return "#f44336";
-
+        return "Ditolak";
       default:
-        return "#666";
+        return status;
     }
   };
 
-  const filteredData = borrowings.filter(
-    (item) => {
-      const matchSearch =
-        item.book_title
-          .toLowerCase()
-          .includes(search.toLowerCase());
+  const filteredData = borrowings.filter((item) => {
+    const matchSearch = item.book_title
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-      const matchStatus =
-        filterStatus === "all"
-          ? true
-          : item.status === filterStatus;
+    const matchStatus =
+      filterStatus === "all"
+        ? true
+        : item.status === filterStatus;
 
-      return matchSearch && matchStatus;
-    }
-  );
+    return matchSearch && matchStatus;
+  });
 
   return (
-    <div
-      style={{
-        background: "#0f0f0f",
-        minHeight: "100vh",
-        color: "#fff",
-      }}
-    >
+    <div className={styles.container}>
       <AppNavbar />
 
-      <div
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          padding: "100px 30px",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "42px",
-            marginBottom: "10px",
-          }}
-        >
-          📚 My Borrowings
-        </h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Peminjaman Saya</h1>
 
-        <p
-          style={{
-            color: "#aaa",
-            marginBottom: "30px",
-          }}
-        >
-          Kelola seluruh aktivitas peminjaman
-          buku Anda
+        <p className={styles.subtitle}>
+          Kelola seluruh aktivitas peminjaman buku Anda
         </p>
 
-        {/* STATS */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(250px,1fr))",
-            gap: "20px",
-            marginBottom: "30px",
-          }}
-        >
+        {/* STATISTIK */}
+        <div className={styles.stats}>
           <CardStat
             icon={<FaBook />}
-            title="Total Borrowings"
+            title="Total Peminjaman"
             value={borrowings.length}
           />
 
           <CardStat
             icon={<FaCheckCircle />}
-            title="Active"
+            title="Sedang Dipinjam"
             value={
-              borrowings.filter(
-                (b) =>
-                  b.status === "borrowed"
-              ).length
+              borrowings.filter((b) => b.status === "borrowed").length
             }
           />
 
           <CardStat
             icon={<FaClock />}
-            title="Pending"
+            title="Menunggu Persetujuan"
             value={
-              borrowings.filter(
-                (b) =>
-                  b.status === "pending"
-              ).length
+              borrowings.filter((b) => b.status === "pending").length
             }
           />
         </div>
 
         {/* SEARCH */}
-        <div
-          style={{
-            display: "flex",
-            gap: "15px",
-            marginBottom: "25px",
-            flexWrap: "wrap",
-          }}
-        >
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              background: "#1a1a1a",
-              padding: "12px",
-              borderRadius: "10px",
-            }}
-          >
+        <div className={styles.searchBar}>
+          <div className={styles.searchInputBox}>
             <FaSearch />
 
             <input
               type="text"
               placeholder="Cari buku..."
               value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
-              style={{
-                background: "none",
-                border: "none",
-                outline: "none",
-                color: "#fff",
-                marginLeft: "10px",
-                width: "100%",
-              }}
+              onChange={(e) => setSearch(e.target.value)}
+              className={styles.searchInput}
             />
           </div>
 
           <select
             value={filterStatus}
-            onChange={(e) =>
-              setFilterStatus(
-                e.target.value
-              )
-            }
-            style={{
-              background: "#1a1a1a",
-              color: "#fff",
-              border: "none",
-              padding: "12px",
-              borderRadius: "10px",
-            }}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className={styles.filter}
           >
-            <option value="all">
-              Semua
-            </option>
-            <option value="pending">
-              Pending
-            </option>
-            <option value="borrowed">
-              Borrowed
-            </option>
-            <option value="returned">
-              Returned
-            </option>
-            <option value="rejected">
-              Rejected
-            </option>
+            <option value="all">Semua</option>
+            <option value="pending">Menunggu Persetujuan</option>
+            <option value="borrowed">Sedang Dipinjam</option>
+            <option value="returned">Dikembalikan</option>
+            <option value="rejected">Ditolak</option>
           </select>
         </div>
 
         {/* TABLE */}
-        <div
-          style={{
-            background: "#181818",
-            borderRadius: "20px",
-            overflow: "hidden",
-          }}
-        >
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-            }}
-          >
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
             <thead>
-              <tr
-                style={{
-                  background: "#202020",
-                }}
-              >
-                <th style={th}>ID</th>
-                <th style={th}>Book</th>
-                <th style={th}>Status</th>
-                <th style={th}>
-                  Due Date
-                </th>
-                <th style={th}>
-                  Action
-                </th>
+              <tr className={styles.tableHead}>
+                <th>No</th>
+                <th>Judul Buku</th>
+                <th>Status</th>
+                <th>Tanggal Jatuh Tempo</th>
+                <th>Aksi</th>
               </tr>
             </thead>
 
             <tbody>
-              {filteredData.length >
-              0 ? (
-                filteredData.map(
-                  (item) => (
-                    <tr
-                      key={item.id}
-                    >
-                      <td style={td}>
-                        #{item.id}
-                      </td>
+              {filteredData.length > 0 ? (
+                filteredData.map((item) => (
+                  <tr key={item.id}>
+                    <td>#{item.id}</td>
 
-                      <td style={td}>
-                        {
-                          item.book_title
-                        }
-                      </td>
+                    <td>{item.book_title}</td>
 
-                      <td style={td}>
-                        <span
-                          style={{
-                            background:
-                              getStatusColor(
-                                item.status
-                              ),
-                            padding:
-                              "6px 14px",
-                            borderRadius:
-                              "20px",
-                            fontSize:
-                              "12px",
-                            fontWeight:
-                              "bold",
-                          }}
+                    <td>
+                      <span
+                        className={`${styles.statusBadge}
+                          ${
+                            item.status === "pending"
+                              ? styles.statusPending
+                              : item.status === "borrowed"
+                              ? styles.statusBorrowed
+                              : item.status === "returned"
+                              ? styles.statusReturned
+                              : styles.statusRejected
+                          }`}
+                      >
+                        {getStatusLabel(item.status)}
+                      </span>
+                    </td>
+
+                    <td>
+                      {item.due_date
+                        ? new Date(item.due_date).toLocaleDateString("id-ID")
+                        : "-"}
+                    </td>
+
+                    <td>
+                      {item.status === "borrowed" ? (
+                        <button
+                          onClick={() => handleReturn(item.id)}
+                          className={styles.returnButton}
                         >
-                          {
-                            item.status
-                          }
-                        </span>
-                      </td>
-
-                      <td style={td}>
-                        {item.due_date
-                          ? new Date(
-                              item.due_date
-                            ).toLocaleDateString(
-                              "id-ID"
-                            )
-                          : "-"}
-                      </td>
-
-                      <td style={td}>
-                        {item.status ===
-                        "borrowed" ? (
-                          <button
-                            onClick={() =>
-                              handleReturn(
-                                item.id
-                              )
-                            }
-                            style={{
-                              background:
-                                "#e50914",
-                              color:
-                                "#fff",
-                              border:
-                                "none",
-                              padding:
-                                "10px 18px",
-                              borderRadius:
-                                "8px",
-                              cursor:
-                                "pointer",
-                            }}
-                          >
-                            Return
-                          </button>
-                        ) : (
-                          "-"
-                        )}
-                      </td>
-                    </tr>
-                  )
-                )
+                          Kembalikan
+                        </button>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
-                  <td
-                    colSpan="5"
-                    style={{
-                      textAlign:
-                        "center",
-                      padding:
-                        "50px",
-                      color:
-                        "#999",
-                    }}
-                  >
-                    📚 Tidak ada data
+                  <td colSpan="5" style={{ textAlign: "center", padding: "50px", color: "#999" }}>
+                    Tidak ada data
                   </td>
                 </tr>
               )}
@@ -402,45 +241,18 @@ function Borrowings() {
   );
 }
 
-function CardStat({
-  icon,
-  title,
-  value,
-}) {
+/* CARD STAT */
+function CardStat({ icon, title, value }) {
   return (
-    <div
-      style={{
-        background: "#181818",
-        padding: "25px",
-        borderRadius: "15px",
-      }}
-    >
-      <div
-        style={{
-          fontSize: "22px",
-          marginBottom: "10px",
-        }}
-      >
-        {icon}
+    <div className={styles.card}>
+      <div className={styles.cardIcon}>{icon}</div>
+
+      <div className={styles.cardContent}>
+        <p>{title}</p>
+        <h2>{value}</h2>
       </div>
-
-      <h3>{title}</h3>
-
-      <h1>{value}</h1>
     </div>
   );
 }
 
-const th = {
-  padding: "18px",
-  textAlign: "left",
-};
-
-const td = {
-  padding: "18px",
-  borderBottom:
-    "1px solid #2a2a2a",
-};
-
 export default Borrowings;
-

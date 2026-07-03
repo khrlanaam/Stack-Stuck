@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import { getBookById } from "../services/bookService";
+import { borrowBook } from "../services/borrowingService";
 
 function BookDetail() {
   const { id } = useParams();
@@ -15,10 +18,54 @@ function BookDetail() {
   const fetchBook = async () => {
     try {
       const response = await getBookById(id);
-
       setBook(response);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleBorrow = async () => {
+    const result = await Swal.fire({
+      title: "Ajukan Peminjaman?",
+      text: "Permintaan peminjaman akan dikirim ke admin untuk disetujui.",
+      icon: "question",
+      background: "#181818",
+      color: "#fff",
+      showCancelButton: true,
+      confirmButtonColor: "#e50914",
+      cancelButtonColor: "#444",
+      confirmButtonText: "Ya, Pinjam",
+      cancelButtonText: "Batal",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const response = await borrowBook(book.id);
+
+      await Swal.fire({
+        title: "Berhasil",
+        text:
+          response.message ||
+          "Permintaan peminjaman berhasil dikirim.",
+        icon: "success",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
+
+      fetchBook();
+    } catch (err) {
+      Swal.fire({
+        title: "Gagal",
+        text:
+          err.response?.data?.message ||
+          "Terjadi kesalahan saat meminjam buku.",
+        icon: "error",
+        background: "#181818",
+        color: "#fff",
+        confirmButtonColor: "#e50914",
+      });
     }
   };
 
@@ -35,7 +82,7 @@ function BookDetail() {
           fontSize: "22px",
         }}
       >
-        Loading...
+        Memuat Data...
       </div>
     );
   }
@@ -49,7 +96,7 @@ function BookDetail() {
         padding: "40px",
       }}
     >
-      {/* Tombol kembali */}
+      {/* Tombol Kembali */}
       <button
         onClick={() => navigate(-1)}
         style={{
@@ -137,19 +184,29 @@ function BookDetail() {
           </div>
 
           <button
+            onClick={handleBorrow}
+            disabled={book.stock <= 0}
             style={{
               marginTop: "40px",
-              background: "#e50914",
+              background:
+                book.stock <= 0
+                  ? "#555"
+                  : "#e50914",
               color: "#fff",
               border: "none",
               padding: "15px 35px",
               borderRadius: "12px",
-              cursor: "pointer",
+              cursor:
+                book.stock <= 0
+                  ? "not-allowed"
+                  : "pointer",
               fontSize: "17px",
               fontWeight: "bold",
             }}
           >
-            📚 Pinjam Buku
+            {book.stock <= 0
+              ? "Stok Habis"
+              : " Pinjam Buku"}
           </button>
         </div>
       </div>
