@@ -17,7 +17,7 @@ function Landing() {
       <About />
       <WhyReadzone />
 
-      <section className={styles.cta} id="about">
+      <section className={styles.cta} id="cta">
         <div className={styles.ctaContainer}>
           <h2>Siap Memulai Petualangan Membacamu?</h2>
           <p>
