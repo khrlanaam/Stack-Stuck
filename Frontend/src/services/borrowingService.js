@@ -139,3 +139,18 @@ export const rejectBorrowing = async (borrowingId) => {
 
   return response.data;
 };
+// SEMUA BORROWINGS (ADMIN)
+export const getAllBorrowings = async () => {
+  const token = localStorage.getItem("token");
+
+  const response = await api.get(
+    "/api/borrowings",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};

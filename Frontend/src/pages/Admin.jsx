@@ -9,9 +9,10 @@ import {
   FaUsers,
   FaClipboardList,
   FaExchangeAlt,
-  FaCheckCircle,
   FaTags,
 } from "react-icons/fa";
+
+import styles from "./admin/Admin.module.css";
 
 import { getAdminStats } from "../services/adminService";
 
@@ -33,6 +34,7 @@ function Admin() {
   });
 
   const [pendingBorrowings, setPendingBorrowings] = useState([]);
+
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -63,7 +65,7 @@ function Admin() {
 
   const handleApprove = async (id) => {
     const result = await Swal.fire({
-      title: "Approve Request?",
+      title: "Setujui Permintaan?",
       text: "Peminjaman akan disetujui.",
       icon: "question",
       background: "#181818",
@@ -71,7 +73,8 @@ function Admin() {
       showCancelButton: true,
       confirmButtonColor: "#00c853",
       cancelButtonColor: "#444",
-      confirmButtonText: "Approve",
+      confirmButtonText: "Setujui",
+      cancelButtonText: "Batal",
     });
 
     if (!result.isConfirmed) return;
@@ -92,7 +95,7 @@ function Admin() {
     } catch (err) {
       Swal.fire({
         title: "Gagal",
-        text: err.response?.data?.message || "Gagal approve",
+        text: err.response?.data?.message || "Gagal menyetujui peminjaman",
         icon: "error",
         background: "#181818",
         color: "#fff",
@@ -102,7 +105,7 @@ function Admin() {
 
   const handleReject = async (id) => {
     const result = await Swal.fire({
-      title: "Reject Request?",
+      title: "Tolak Permintaan?",
       text: "Peminjaman akan ditolak.",
       icon: "warning",
       background: "#181818",
@@ -110,7 +113,8 @@ function Admin() {
       showCancelButton: true,
       confirmButtonColor: "#e50914",
       cancelButtonColor: "#444",
-      confirmButtonText: "Reject",
+      confirmButtonText: "Tolak",
+      cancelButtonText: "Batal",
     });
 
     if (!result.isConfirmed) return;
@@ -130,7 +134,7 @@ function Admin() {
     } catch (err) {
       Swal.fire({
         title: "Gagal",
-        text: err.response?.data?.message || "Gagal reject",
+        text: err.response?.data?.message || "Gagal menolak peminjaman",
         icon: "error",
         background: "#181818",
         color: "#fff",
@@ -139,34 +143,15 @@ function Admin() {
   };
 
   const statCard = (title, value, icon, color) => (
-    <div
-      style={{
-        background: "#181818",
-        borderRadius: "15px",
-        padding: "25px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      {" "}
+    <div className={styles.card}>
       <div>
-        <p
-          style={{
-            color: "#aaa",
-            marginBottom: "10px",
-          }}
-        >
-          {title}{" "}
-        </p>
-
-        <h1>{value}</h1>
+        <p className={styles.cardTitle}>{title}</p>
+        <h1 className={styles.cardValue}>{value}</h1>
       </div>
+
       <div
-        style={{
-          fontSize: "40px",
-          color,
-        }}
+        className={styles.cardIcon}
+        style={{ color }}
       >
         {icon}
       </div>
@@ -174,254 +159,133 @@ function Admin() {
   );
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0f0f0f",
-        color: "#fff",
-        padding: "40px",
-      }}
-    >
-      {/* HEADER */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "40px",
-        }}
-      >
-        {" "}
+    <div className={styles.container}>
+
+      <div className={styles.header}>
         <div>
-          <h1
-            style={{
-              fontSize: "38px",
-            }}
-          >
-            Admin Dashboard{" "}
+          <h1 className={styles.title}>
+            Dashboard Admin
           </h1>
 
-          <p
-            style={{
-              color: "#aaa",
-            }}
-          >
-            Library Management System
+          <p className={styles.subtitle}>
+            Sistem Manajemen Perpustakaan
           </p>
         </div>
+
         <button
           onClick={handleLogout}
-          style={{
-            background: "#e50914",
-            color: "#fff",
-            border: "none",
-            padding: "12px 20px",
-            borderRadius: "10px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
+          className={styles.logoutBtn}
         >
           Logout
         </button>
       </div>
 
-      {/* STATS */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
-          gap: "20px",
-        }}
-      >
-        {statCard("Total Books", stats.totalBooks, <FaBook />, "#2196f3")}
-
-        {statCard("Total Users", stats.totalUsers, <FaUsers />, "#ff9800")}
+      <div className={styles.statGrid}>
+        {statCard(
+          "Total Buku",
+          stats.totalBooks,
+          <FaBook />,
+          "#2196f3"
+        )}
 
         {statCard(
-          "Borrowings",
+          "Total Pengguna",
+          stats.totalUsers,
+          <FaUsers />,
+          "#ff9800"
+        )}
+
+        {statCard(
+          "Total Peminjaman",
           stats.totalBorrowings,
           <FaClipboardList />,
-          "#9c27b0",
+          "#9c27b0"
         )}
 
         {statCard(
-          "Active Borrowings",
+          "Peminjaman Aktif",
           stats.activeBorrowings,
           <FaExchangeAlt />,
-          "#00c853",
+          "#00c853"
         )}
       </div>
 
-      {/* PENDING */}
-      <div
-        style={{
-          marginTop: "50px",
-        }}
-      >
-        <h2
-          style={{
-            marginBottom: "20px",
-          }}
+      <div className={styles.menuSection}>
+        <h2>Menu Manajemen</h2>
+
+        <div className={styles.menuGrid}></div>
+        <div
+          className={styles.menuCard}
+          onClick={() => navigate("/admin/books")}
         >
-          Pending Requests
-        </h2>
+          <FaBook
+            size={42}
+            color="#2196f3"
+          />
 
-        {pendingBorrowings.length === 0 ? (
-          <div
-            style={{
-              background: "#181818",
-              padding: "30px",
-              borderRadius: "15px",
-              textAlign: "center",
-            }}
-          >
-            <FaCheckCircle size={50} color="#00c853" />
+          <h3>Kelola Buku</h3>
 
-            <h3
-              style={{
-                marginTop: "15px",
-              }}
-            >
-              Tidak ada request pending
-            </h3>
-          </div>
-        ) : (
-          pendingBorrowings.map((item) => (
-            <div
-              key={item.id}
-              style={{
-                background: "#181818",
-                padding: "20px",
-                borderRadius: "15px",
-                marginBottom: "15px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <h3>{item.book_title}</h3>
-
-                <p>User: {item.user_name}</p>
-
-                <p>
-                  Due Date:{" "}
-                  {new Date(item.due_date).toLocaleDateString("id-ID")}
-                </p>
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                <button
-                  onClick={() => handleApprove(item.id)}
-                  style={{
-                    background: "#00c853",
-                    color: "#fff",
-                    border: "none",
-                    padding: "10px 18px",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Approve
-                </button>
-
-                <button
-                  onClick={() => handleReject(item.id)}
-                  style={{
-                    background: "#e50914",
-                    color: "#fff",
-                    border: "none",
-                    padding: "10px 18px",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* MENU */}
-      <div
-        style={{
-          marginTop: "50px",
-        }}
-      >
-        <h2>Management Menu</h2>
+          <p>
+            Tambah, edit, hapus dan kelola
+            data buku perpustakaan.
+          </p>
+        </div>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
-            gap: "20px",
-            marginTop: "20px",
-          }}
+          className={styles.menuCard}
+          onClick={() => navigate("/admin/users")}
         >
-          {/* BOOKS */}
-          <div
-            onClick={() => navigate("/admin/books")}
-            style={{
-              background: "#181818",
-              padding: "30px",
-              borderRadius: "15px",
-              cursor: "pointer",
-            }}
-          >
-            <FaBook size={40} color="#2196f3" />
-            <h3>Manage Books</h3>
-          </div>
+          <FaUsers
+            size={42}
+            color="#ff9800"
+          />
 
-          {/* USERS */}
-          <div
-            onClick={() => navigate("/admin/users")}
-            style={{
-              background: "#181818",
-              padding: "30px",
-              borderRadius: "15px",
-              cursor: "pointer",
-            }}
-          >
-            <FaUsers size={40} color="#ff9800" />
-            <h3>Manage Users</h3>
-          </div>
+          <h3>Kelola Pengguna</h3>
 
-          {/* BORROWINGS */}
-          <div
-            onClick={() => navigate("/admin/borrowings")}
-            style={{
-              background: "#181818",
-              padding: "30px",
-              borderRadius: "15px",
-              cursor: "pointer",
-            }}
-          >
-            <FaClipboardList size={40} color="#9c27b0" />
-            <h3>Manage Borrowings</h3>
-          </div>
+          <p>
+            Lihat seluruh data pengguna
+            yang telah melakukan
+            registrasi.
+          </p>
+        </div>
 
-          {/* CATEGORIES */}
-          <div
-            onClick={() => navigate("/admin/categories")}
-            style={{
-              background: "#181818",
-              padding: "30px",
-              borderRadius: "15px",
-              cursor: "pointer",
-            }}
-          >
-            <FaTags size={40} color="#00c853" />
-            <h3>Manage Categories</h3>
-          </div>
+        <div
+          className={styles.menuCard}
+          onClick={() =>
+            navigate("/admin/borrowings")
+          }
+        >
+          <FaClipboardList
+            size={42}
+            color="#9c27b0"
+          />
+
+          <h3>Kelola Peminjaman</h3>
+
+          <p>
+            Setujui, tolak dan pantau
+            seluruh transaksi
+            peminjaman buku.
+          </p>
+        </div>
+
+        <div
+          className={styles.menuCard}
+          onClick={() =>
+            navigate("/admin/categories")
+          }
+        >
+          <FaTags
+            size={42}
+            color="#00c853"
+          />
+
+          <h3>Kelola Kategori</h3>
+
+          <p>
+            Tambah, edit dan hapus
+            kategori buku.
+          </p>
         </div>
       </div>
     </div>
