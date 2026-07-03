@@ -1,13 +1,9 @@
-import {
-  FaUsers,
-  FaUserTie,
-  FaCode,
-  FaSearch,
-  FaLock,
-  FaBookOpen,
-  FaLayerGroup,
-} from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import styles from "./About.module.css";
+
+const photoModules = import.meta.glob("../../../assets/team/*.jpg", {
+  eager: true,
+});
 
 const features = [
   {
@@ -37,38 +33,43 @@ const team = [
     name: "ABIYAN ABDULROHMAN",
     role: "Category Feature Developer",
     desc: "Mengembangkan fitur Category Management untuk pengelolaan kategori buku.",
-    icon: <FaLayerGroup />,
+    photoFile: "Abiyan Abdulrohman.jpg",
   },
   {
     name: "MUHAMMAD RAISA QISTI RAIHAN",
     role: "Book Search Developer",
     desc: "Mengembangkan fitur Pencarian Buku sehingga pengguna dapat mencari buku berdasarkan judul maupun penulis.",
-    icon: <FaSearch />,
+    photoFile: "Muhammad Raisa Qisti Raihan.jpg",
   },
   {
     name: "MUHAMMAD KHOIRUL ANAM",
     role: "Authentication Developer",
     desc: "Mengembangkan fitur Login menggunakan JWT Authentication.",
-    icon: <FaLock />,
+    photoFile: "Muhammad Khoirul Anam.jpg",
   },
   {
     name: "FERDY PRATAMA",
     role: "Borrowing System Developer",
     desc: "Mengembangkan fitur Peminjaman Buku dan pengelolaan status peminjaman.",
-    icon: <FaBookOpen />,
+    photoFile: "Ferdy Pratama.jpg",
   },
   {
     name: "MUHAMMAD THORIQ AL FATH",
     role: "Book Management Developer",
     desc: "Mengembangkan fitur CRUD Buku serta manajemen data buku.",
-    icon: <FaCode />,
+    photoFile: "Muhammad Thoriq Al Fath.jpg",
   },
 ];
+
+function getPhotoUrl(photoFile) {
+  if (!photoFile) return null;
+  const key = Object.keys(photoModules).find((k) => k.includes(photoFile));
+  return key ? photoModules[key].default : null;
+}
 
 function About() {
   return (
     <>
-      {/* FITUR */}
       <section className={styles.section} id="features">
         <div className={styles.container}>
           <div className={styles.header}>
@@ -91,7 +92,6 @@ function About() {
         </div>
       </section>
 
-      {/* TIM PENGEMBANG */}
       <section className={styles.section} id="about">
         <div className={styles.container}>
           <div className={styles.header}>
@@ -103,30 +103,59 @@ function About() {
           </div>
 
           <div className={styles.teamGrid}>
-            {team.slice(0, 3).map((member, i) => (
-              <div className={styles.teamCard} key={i}>
-                <div className={styles.teamIcon}>{member.icon}</div>
-                <h3 className={styles.teamName}>{member.name}</h3>
-                <p className={styles.teamRole}>{member.role}</p>
-                <p className={styles.teamDesc}>{member.desc}</p>
-              </div>
-            ))}
+            {team.slice(0, 3).map((member, i) => {
+              const photoUrl = getPhotoUrl(member.photoFile);
+              return (
+                <div className={styles.teamCard} key={i}>
+                  <div className={styles.teamPhotoWrap}>
+                    {photoUrl ? (
+                      <img
+                        src={photoUrl}
+                        alt={member.name}
+                        className={styles.teamPhoto}
+                      />
+                    ) : (
+                      <div className={styles.teamPhotoPlaceholder}>
+                        <FaUserCircle />
+                      </div>
+                    )}
+                  </div>
+                  <h3 className={styles.teamName}>{member.name}</h3>
+                  <p className={styles.teamRole}>{member.role}</p>
+                  <p className={styles.teamDesc}>{member.desc}</p>
+                </div>
+              );
+            })}
           </div>
 
           <div className={styles.teamGridCenter}>
-            {team.slice(3).map((member, i) => (
-              <div className={styles.teamCard} key={i}>
-                <div className={styles.teamIcon}>{member.icon}</div>
-                <h3 className={styles.teamName}>{member.name}</h3>
-                <p className={styles.teamRole}>{member.role}</p>
-                <p className={styles.teamDesc}>{member.desc}</p>
-              </div>
-            ))}
+            {team.slice(3).map((member, i) => {
+              const photoUrl = getPhotoUrl(member.photoFile);
+              return (
+                <div className={styles.teamCard} key={i}>
+                  <div className={styles.teamPhotoWrap}>
+                    {photoUrl ? (
+                      <img
+                        src={photoUrl}
+                        alt={member.name}
+                        className={styles.teamPhoto}
+                      />
+                    ) : (
+                      <div className={styles.teamPhotoPlaceholder}>
+                        <FaUserCircle />
+                      </div>
+                    )}
+                  </div>
+                  <h3 className={styles.teamName}>{member.name}</h3>
+                  <p className={styles.teamRole}>{member.role}</p>
+                  <p className={styles.teamDesc}>{member.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* TENTANG READZONE */}
       <section className={styles.section} id="about-info">
         <div className={styles.container}>
           <div className={styles.header}>
