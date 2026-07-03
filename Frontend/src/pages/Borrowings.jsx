@@ -7,6 +7,7 @@ import {
   FaClock,
   FaCheckCircle,
   FaSearch,
+  FaHistory,
 } from "react-icons/fa";
 
 import AppNavbar from "../components/layout/AppNavbar/AppNavbar";
@@ -103,6 +104,14 @@ function Borrowings() {
     return matchSearch && matchStatus;
   });
 
+  const activeBorrowings = filteredData.filter(
+    (item) => item.status !== "returned"
+  );
+
+  const historyBorrowings = borrowings.filter(
+    (item) => item.status === "returned"
+  );
+
   return (
     <div className={styles.container}>
       <AppNavbar />
@@ -137,6 +146,14 @@ function Borrowings() {
               borrowings.filter((b) => b.status === "pending").length
             }
           />
+
+          <CardStat
+            icon={<FaHistory />}
+            title="Sudah Dikembalikan"
+            value={
+              borrowings.filter((b) => b.status === "returned").length
+            }
+          />
         </div>
 
         {/* SEARCH */}
@@ -166,7 +183,11 @@ function Borrowings() {
           </select>
         </div>
 
-        {/* TABLE */}
+        {/* PEMINJAMAN AKTIF */}
+        <h2 style={{ fontSize: "22px", marginBottom: "16px" }}>
+          Peminjaman Aktif
+        </h2>
+
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
@@ -180,8 +201,8 @@ function Borrowings() {
             </thead>
 
             <tbody>
-              {filteredData.length > 0 ? (
-                filteredData.map((item) => (
+              {activeBorrowings.length > 0 ? (
+                activeBorrowings.map((item) => (
                   <tr key={item.id}>
                     <td>#{item.id}</td>
 
@@ -228,6 +249,63 @@ function Borrowings() {
                 <tr>
                   <td colSpan="5" style={{ textAlign: "center", padding: "50px", color: "#999" }}>
                     Tidak ada data
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* RIWAYAT PEMINJAMAN */}
+        <h2 style={{ fontSize: "22px", marginTop: "40px", marginBottom: "16px" }}>
+          Riwayat Peminjaman
+        </h2>
+
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.tableHead}>
+                <th>No</th>
+                <th>Judul Buku</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {historyBorrowings.length > 0 ? (
+                historyBorrowings.map((item) => (
+                  <tr key={item.id}>
+                    <td>#{item.id}</td>
+
+                    <td>{item.book_title}</td>
+
+                    <td>
+                      {item.borrow_date
+                        ? new Date(item.borrow_date).toLocaleDateString("id-ID")
+                        : "-"}
+                    </td>
+
+                    <td>
+                      {item.return_date
+                        ? new Date(item.return_date).toLocaleDateString("id-ID")
+                        : "-"}
+                    </td>
+
+                    <td>
+                      <span
+                        className={`${styles.statusBadge} ${styles.statusReturned}`}
+                      >
+                        {getStatusLabel(item.status)}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" style={{ textAlign: "center", padding: "50px", color: "#999" }}>
+                    Belum ada riwayat peminjaman.
                   </td>
                 </tr>
               )}
