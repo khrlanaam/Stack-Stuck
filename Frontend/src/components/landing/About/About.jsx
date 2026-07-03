@@ -1,62 +1,49 @@
 import styles from "./About.module.css";
 
+const features = [
+  {
+    emoji: "\uD83D\uDCDA",
+    title: "Koleksi Lengkap",
+    desc: "Ribuan buku dari berbagai kategori siap menemani perjalanan membacamu.",
+  },
+  {
+    emoji: "\u23F1\uFE0F",
+    title: "Peminjaman Mudah",
+    desc: "Pinjam buku favorit hanya dalam beberapa klik, tanpa ribet.",
+  },
+  {
+    emoji: "\uD83D\uDD16",
+    title: "Akses Kapan Saja",
+    desc: "Baca dan kelola koleksi buku di mana pun dan kapan pun kamu mau.",
+  },
+  {
+    emoji: "\uD83D\uDEE1\uFE0F",
+    title: "Aman & Terpercaya",
+    desc: "Data akun dan aktivitasmu terlindungi dengan sistem yang aman.",
+  },
+];
+
 function About() {
   return (
-    <section className={styles.about} id="about">
+    <section className={styles.section} id="features">
       <div className={styles.container}>
-
-        <span className={styles.label}>
-          TENTANG READZONE
-        </span>
-
-        <h2>
-          Platform Perpustakaan Digital
-        </h2>
-
-        <p className={styles.description}>
-          ReadZone adalah platform perpustakaan digital yang dirancang untuk
-          membantu pengguna menemukan, menjelajahi, dan mengelola koleksi buku
-          secara lebih mudah dalam satu sistem yang terintegrasi.
-        
-          Dengan antarmuka yang modern dan pengalaman pengguna yang sederhana,
-          ReadZone memungkinkan pembaca mengakses berbagai kategori buku,
-          menemukan rekomendasi bacaan yang relevan, serta membangun kebiasaan
-          membaca yang lebih terorganisir dan efisien.
-        </p>
-
-        <div className={styles.cards}>
-
-          <div className={styles.card}>
-            <div className={styles.icon}>
-              🎯
-            </div>
-
-            <h3>Misi</h3>
-
-            <p>
-            Membantu pengguna menemukan buku yang sesuai dengan minat mereka,
-            mengelola aktivitas membaca secara efektif, serta menciptakan
-            pengalaman membaca digital yang praktis dan menyenangkan.
-            </p>
-            
-          </div>
-
-          <div className={styles.card}>
-            <div className={styles.icon}>
-              👁️
-            </div>
-
-            <h3>Visi</h3>
-
-            <p>
-              Menjadi salah satu platform digital pilihan bagi masyarakat
-              dalam mengakses, mengelola, dan menikmati berbagai koleksi
-              buku serta sumber pembelajaran secara online.
-            </p>
-          </div>
-
+        <div className={styles.header}>
+          <h2>Kenapa Memilih ReadZone?</h2>
+          <p>
+            Kami hadir untuk membuat pengalaman membaca digitalmu
+            lebih nyaman, mudah, dan menyenangkan.
+          </p>
         </div>
 
+        <div className={styles.grid}>
+          {features.map((f, i) => (
+            <div className={styles.card} key={i}>
+              <span className={styles.iconEmoji}>{f.emoji}</span>
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,73 +1,96 @@
 .footer {
-  margin-top: 80px;
-
-  border-top: 1px solid rgba(255,255,255,.08);
-
-  background: #09090d;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: #0f1115;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-
-  padding: 70px 80px;
-
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  padding: 60px 80px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 60px;
 }
 
-.brand h2 {
-  color: #e50914;
-  font-size: 36px;
+.brand {
+  flex: 1;
+}
 
-  margin-bottom: 16px;
+.brandName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.brandName svg {
+  font-size: 1.4rem;
+  color: #e50914;
 }
 
 .brand p {
-  color: rgba(255,255,255,.7);
-
-  line-height: 1.8;
-
-  max-width: 450px;
+  color: #a1a1aa;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 320px;
+  margin: 0;
 }
 
-.links,
-.contact {
+.links {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
-.links h4,
-.contact h4 {
-  margin-bottom: 20px;
+.links h4 {
   color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
 }
 
 .links a {
   text-decoration: none;
-  color: rgba(255,255,255,.7);
-
-  margin-bottom: 12px;
-
-  transition: .2s;
+  color: #a1a1aa;
+  font-size: 14px;
+  transition: 300ms ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
 }
 
 .links a:hover {
-  color: #e50914;
-}
-
-.contact p {
-  color: rgba(255,255,255,.7);
-  margin-bottom: 12px;
+  color: white;
 }
 
 .bottom {
-  border-top: 1px solid rgba(255,255,255,.08);
-
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+}
 
-  padding: 24px;
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 40px 24px 24px;
+    gap: 32px;
+  }
 
-  color: rgba(255,255,255,.5);
+  .brand p {
+    max-width: 100%;
+  }
+
+  .bottom {
+    padding: 16px;
+    font-size: 12px;
+  }
 }

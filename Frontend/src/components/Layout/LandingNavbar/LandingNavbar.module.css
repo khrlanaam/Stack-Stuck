@@ -1,94 +1,123 @@
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 22px 80px;
+  transition: 300ms ease;
+}
 
-  padding: 18px 60px;
-
-  background: rgba(11, 11, 15, 0.85);
+.scrolled {
+  background: rgba(15, 17, 21, 0.85);
   backdrop-filter: blur(20px);
-
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px 80px;
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #e50914;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
   cursor: pointer;
+  user-select: none;
+}
+
+.logo svg {
+  font-size: 1.5rem;
+  color: #e50914;
+}
+
+.logo span {
+  color: white;
 }
 
 .menu {
   display: flex;
-  gap: 32px;
+  align-items: center;
+  gap: 36px;
 }
 
-.menu span {
-  color: rgba(255,255,255,0.8);
+.menu a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 300ms ease;
   cursor: pointer;
-  transition: 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
-.menu span:hover {
+.menu a:hover {
   color: white;
 }
 
 .auth {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.username {
-  color: rgba(255,255,255,0.8);
+  gap: 10px;
 }
 
 .loginBtn {
   background: transparent;
-  color: white;
-  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 24px;
   cursor: pointer;
-  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 300ms ease;
+  border-radius: 10px;
+}
+
+.loginBtn:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .registerBtn {
   background: #e50914;
   color: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
+  padding: 10px 24px;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 15px;
   font-weight: 600;
+  transition: 300ms ease;
 }
 
-.logoutBtn {
-  background: #e50914;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.registerBtn:hover,
-.logoutBtn:hover {
-  opacity: 0.9;
+.registerBtn:hover {
+  background: #ff0f1a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 24px rgba(229, 9, 20, 0.35);
 }
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 16px 20px;
+    padding: 16px 24px;
+  }
+
+  .scrolled {
+    padding: 12px 24px;
   }
 
   .menu {
     display: none;
   }
 
-  .logo {
-    font-size: 1.5rem;
+  .loginBtn,
+  .registerBtn {
+    padding: 8px 18px;
+    font-size: 14px;
   }
 }
