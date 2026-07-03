@@ -14,4 +14,11 @@ router.get(
   adminController.getStats
 );
 
+router.get(
+  "/users",
+  auth,
+  authorize("admin"),
+  adminController.getUsers
+);
+
 module.exports = router;

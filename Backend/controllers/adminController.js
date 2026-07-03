@@ -1,8 +1,12 @@
 const db = require("../config/database");
 
+/*
+|--------------------------------------------------------------------------
+| GET STATS
+|--------------------------------------------------------------------------
+*/
 exports.getStats = async (req, res) => {
   try {
-
     const [books] = await db.query(
       "SELECT COUNT(*) AS totalBooks FROM books"
     );
@@ -27,17 +31,36 @@ exports.getStats = async (req, res) => {
     res.json({
       totalBooks: books[0].totalBooks,
       totalUsers: users[0].totalUsers,
-      totalBorrowings:
-        borrowings[0].totalBorrowings,
-      totalOverdue:
-        overdue[0].totalOverdue,
+      totalBorrowings: borrowings[0].totalBorrowings,
+      totalOverdue: overdue[0].totalOverdue,
     });
 
   } catch (err) {
-
     res.status(500).json({
       error: err.message,
     });
+  }
+};
 
+/* GET ALL USERS*/
+exports.getUsers = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT
+        id,
+        name,
+        email,
+        role,
+        created_at
+      FROM users
+      ORDER BY id DESC
+    `);
+
+    res.json(rows);
+
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
   }
 };

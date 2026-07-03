@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import styles from "./AppNavbar.module.css";
 
@@ -7,22 +7,25 @@ function AppNavbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const urlQuery = searchParams.get("q") || "";
+  const [searchQuery, setSearchQuery] = useState(urlQuery);
+
+  useEffect(() => {
+    setSearchQuery(urlQuery);
+  }, [urlQuery]);
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  // Search buku -> diarahkan ke halaman Categories
   const handleSearchSubmit = (e) => {
     e.preventDefault();
 
     if (!searchQuery.trim()) return;
 
-    navigate(
-      `/categories?search=${encodeURIComponent(searchQuery)}`
-    );
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   return (
