@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 
 import Borrowings from "../pages/Borrowings";
 import Categories from "../pages/Categories";
+import Search from "../pages/Search";
 import BookDetail from "../pages/BookDetail";
 
 import Admin from "../pages/Admin";
@@ -61,6 +62,15 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Categories />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/search"
+        element={
+          <ProtectedRoute>
+            <Search />
           </ProtectedRoute>
         }
       />

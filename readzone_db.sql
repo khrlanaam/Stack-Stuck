@@ -68,7 +68,7 @@ CREATE TABLE `borrowings` (
   `borrow_date` date NOT NULL,
   `due_date` date NOT NULL,
   `return_date` date DEFAULT NULL,
-  `status` enum('borrowed','returned','late') DEFAULT 'borrowed',
+  `status` enum('pending','borrowed','returned','rejected','late') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
