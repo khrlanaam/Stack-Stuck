@@ -21,7 +21,7 @@ function Landing() {
         <div className={styles.ctaContainer}>
           <h2>Siap Memulai Petualangan Membacamu?</h2>
           <p>
-            Daftar sekarang dan nikmati akses ke ribuan koleksi buku
+            Daftar sekarang dan nikmati akses ke ribuan koleksi - koleksi buku
             digital. Gratis, kapan saja, di mana saja.
           </p>
           <button
