@@ -1,11 +1,11 @@
 # ReadZone
 
-ReadZone is a web-based Digital Library Management System that helps users browse, search, and borrow books while providing administrators with tools to manage books, categories, and borrowing records. Built using React, Express.js, and MySQL.
+ReadZone is a web-based Digital Library Management System that enables users to browse, search, and borrow books while providing administrators with tools to manage books, categories, and borrowing records. The application is built with React, Express.js, and MySQL.
 
-## Key Features
+## Features
 
 ### User
-- Register, Login & Logout
+- Register, Login, and Logout
 - Browse Books
 - Search Books
 - View Books by Category
@@ -20,7 +20,7 @@ ReadZone is a web-based Digital Library Management System that helps users brows
 - Book Stock Management
 - JWT Authentication & Role-Based Authorization
 
-## Technology
+## Tech Stack
 
 ### Frontend
 - React.js
@@ -39,6 +39,8 @@ ReadZone is a web-based Digital Library Management System that helps users brows
 
 ## Installation
 
+Clone the repository.
+
 ```bash
 git clone https://github.com/khrlanaam/ReadZone.git
 cd ReadZone
@@ -46,16 +48,14 @@ cd ReadZone
 
 ### Backend
 
+Install dependencies.
+
 ```bash
-cd backend
+cd Backend
 npm install
 ```
 
-Copy the environment configuration.
-
-```bash
-cp .env.example .env
-```
+Create a `.env` file in the **Backend** directory and configure it according to your local environment (database connection, server port, and JWT settings).
 
 Start the backend server.
 
@@ -65,26 +65,12 @@ npm run dev
 
 ### Frontend
 
+Open a new terminal.
+
 ```bash
-cd frontend
+cd Frontend
 npm install
 npm run dev
-```
-
-## Environment Variables
-
-Create a `.env` file in the backend directory.
-
-```env
-PORT=
-
-DB_HOST=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-
-JWT_SECRET=
-JWT_EXPIRES=
 ```
 
 ## License
